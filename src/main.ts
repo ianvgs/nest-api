@@ -17,9 +17,9 @@ async function bootstrap() {
   );
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-  const rmqService = app.get<RmqService>(RmqService);
+  /* const rmqService = app.get<RmqService>(RmqService);
   app.connectMicroservice(rmqService.getOptions('TESTING', false));
-  await app.startAllMicroservices();
+  await app.startAllMicroservices(); */
 
   const configService = app.get(ConfigService);
   // da pra colocar o PORT no dotenv
