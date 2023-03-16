@@ -24,5 +24,6 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   // da pra colocar o PORT no dotenv
   await app.listen(configService.get('PORT') || 3000);
+  console.log(`App listenint at port ${configService.get('PORT') || 3000}`)
 }
 bootstrap();
