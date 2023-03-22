@@ -11,7 +11,9 @@ export class CategoriaService {
   ) { }
 
   async getTodasCategorias(): Promise<Categoria[]> {
-    const categorias = await this.categoriaRepo.find();
+    const categorias = await this.categoriaRepo.find({
+      /* relations: { noticias: true } */
+    });
     return categorias;
   }
 }

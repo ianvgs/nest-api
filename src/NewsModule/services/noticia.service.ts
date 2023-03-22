@@ -15,4 +15,22 @@ export class NoticiaService {
     });
     return noticias;
   }
+
+  async cadastrarNoticia(props: Partial<Noticia>): Promise<Noticia> {
+    const { titulo, resumo, observacao, idCategoria, idColaborador, tags } = props;
+
+    const createdNoticia = this.noticiaRepo.create({
+      titulo,
+      resumo,
+      observacao,
+      idCategoria,
+      idColaborador,
+      ativo: "S",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const savedNoticia = await this.noticiaRepo.save(createdNoticia);
+    return savedNoticia;
+  }
 }

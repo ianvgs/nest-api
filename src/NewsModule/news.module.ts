@@ -23,6 +23,10 @@ import { CategoriaController } from './controllers/categoria.controller';
 import { UcRecuperarTodasTags } from './useCases/tagUseCases/UcRecuperarTodasTags';
 import { TagController } from './controllers/tag.controller';
 import { TagService } from './services/tag.service';
+import { NewsService } from './services/news.service';
+import { UcRecuperarHomeInformações } from './useCases/newsUseCases/UcRecuperarHomeInformações';
+import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarFormDataNoticia';
+import { UcCadastrarNoticia } from './useCases/noticiaUseCases/UcCadastrarNoticia';
 
 
 @Module({
@@ -34,10 +38,14 @@ import { TagService } from './services/tag.service';
   ],
   controllers: [NewsController, CategoriaController, NoticiaController, TagController, ColaboradorController],
   providers: [
+    NewsService,
     TagService,
     CategoriaService,
     NoticiaService,
     ColaboradorService,
+    UcCadastrarNoticia,
+    UcRecuperarFormDataNoticia,
+    UcRecuperarHomeInformações,
     UcRecuperarTodasTags,
     UcRecuperarTodasNoticias,
     UcRecuperarTodasCategorias,
