@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Noticia } from '../entities/noticia.entity';
 import { Categoria } from '../entities/categoria.entity';
 import { Tag } from '../entities/tag.entity';
+import { Colaborador } from '../entities/colaborador.entity';
 
 @Injectable()
 export class NewsService {
@@ -14,6 +15,8 @@ export class NewsService {
         private readonly categRepo: Repository<Categoria>,
         @InjectRepository(Tag, 'news_connection')
         private readonly tagRepo: Repository<Tag>,
+        @InjectRepository(Colaborador, 'news_connection')
+        private readonly colabRepo: Repository<Colaborador>,
     ) { }
 
     async recuperarHomeInformações(): Promise<any> {
@@ -23,15 +26,20 @@ export class NewsService {
 
     async recuperarNoticiaFormData(): Promise<any> {
         const categorias = this.categRepo
-            .createQueryBuilder('evento')
-            .select(['id AS value', 'descricao AS label'])
+            .createQueryBuilder('categoria')
+            .select(['id AS value', 'nome AS label'])
             .getRawMany();
         const tags = await this.tagRepo
             .createQueryBuilder('tag')
             .select(['id AS value', 'tag AS label', 'color'])
             .getRawMany();
-        const [eventosQuery, tagsQuery] = await Promise.all([categorias, tags]);
-        const cadastrarNoticiasCofigs = [{ categorias: eventosQuery, tags: tagsQuery }];
+
+        const colabs = await this.colabRepo
+            .createQueryBuilder('colaborador')
+            .select(['id AS value', 'nome AS label'])
+            .getRawMany();
+        const [eventosQuery, tagsQuery, colabsQuery] = await Promise.all([categorias, tags, colabs]);
+        const cadastrarNoticiasCofigs = [{ categorias: eventosQuery, tags: tagsQuery, colaboradores: colabsQuery }];
         return cadastrarNoticiasCofigs;
     }
 }
