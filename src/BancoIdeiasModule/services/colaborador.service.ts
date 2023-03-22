@@ -7,7 +7,7 @@ import { Colaborador } from '../entities/colaborador.entity';
 @Injectable()
 export class ColaboradorService {
   constructor(
-    @InjectRepository(Colaborador, 'banco_ideias')
+    @InjectRepository(Colaborador, 'banco_ideias_connection')
     private readonly colabRepo: Repository<Colaborador>,
   ) { }
 
@@ -16,4 +16,4 @@ export class ColaboradorService {
     return colabs;
   }
 
-}
+} 

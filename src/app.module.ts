@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
-
 import { UsersModule } from './UsersModule/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MailerModuler } from './MailerModule/mailer.module';
-
 import { AppController } from './app.controller';
 import * as Joi from 'joi';
 import { NewsModule } from './NewsModule/news.module';
@@ -28,14 +26,14 @@ import { BancoIdeiasModule } from './BancoIdeiasModule/bancoIdeias.module';
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      name: 'news_database2',
+      name: 'news_connection',
       useFactory: async (configService: ConfigService) => {
         return configService.get<DataSourceOptions>('database.news');
       },
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      name: 'banco_ideias',
+      name: 'banco_ideias_connection',
       useFactory: async (configService: ConfigService) => {
         return configService.get<DataSourceOptions>('database.banco_ideias');
       },

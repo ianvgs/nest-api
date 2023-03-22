@@ -9,10 +9,13 @@ import {
 } from 'typeorm';
 import { Noticia } from './noticia.entity';
 
-@Entity('categoria', { database: 'news_database2' })
+@Entity('categoria')
 export class Categoria {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
+
+  @Column({ name: 'nome' })
+  nome: string;
 
   @Column({ name: 'descricao' })
   descricao: string;
@@ -38,6 +41,7 @@ export class Categoria {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  //Cria a propriedade evento.ideias = <Ideias[]>
   @OneToMany(() => Noticia, (noticia) => noticia.categoria)
   @JoinColumn({ name: 'id' })
   noticias: Noticia[];

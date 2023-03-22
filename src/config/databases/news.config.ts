@@ -5,9 +5,9 @@ const DatabaseConfig = () => ({
   password: process.env.NEWS_PASSWORD,
   database: process.env.NEWS_DATABASE,
   port: parseInt(process.env.NEWS_PORT),
-  synchronize: false,
+  /*  synchronize: true, */
   entities: ['dist/**/*.entity{.ts,.js}'],
-  /*   autoLoadEntities: true */
+  autoLoadEntities: true
 })
 
 export default DatabaseConfig

@@ -17,7 +17,7 @@ import { UcRecuperarTodosColaboradores } from './useCases/colaborador/UcRecupera
     TypeOrmModule.forFeature(
       [Colaborador,],
       //@Inject-Repository
-      'banco_ideias',
+      'banco_ideias_connection',
     ),
   ],
   controllers: [

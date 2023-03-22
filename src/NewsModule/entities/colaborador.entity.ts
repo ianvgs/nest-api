@@ -7,10 +7,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
 import { Noticia } from './noticia.entity';
 
-@Entity('colaborador', { database: 'news_database2' })
+
+
+@Entity('colaborador')
 export class Colaborador {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
@@ -30,6 +31,7 @@ export class Colaborador {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  //Cria a propriedade colaborador.ideias = <Ideia[]>
   @OneToMany(() => Noticia, (noticia) => noticia.colaborador)
   @JoinColumn({ name: 'id' })
   noticias: Noticia[];

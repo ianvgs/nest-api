@@ -11,10 +11,9 @@ import {
 } from 'typeorm';
 import { Colaborador } from './colaborador.entity';
 import { Categoria } from './categoria.entity';
-
 import { Tag } from './tag.entity';
 
-@Entity('noticia', { database: 'news_database2' })
+@Entity('noticia')
 export class Noticia {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
@@ -45,14 +44,17 @@ export class Noticia {
   @UpdateDateColumn(/* { default: new Date() } */)
   updatedAt: Date;
 
-  @ManyToOne(() => Categoria, (categoria) => categoria.noticias)
-  @JoinColumn({ name: 'idCategoria' })
-  categoria: Categoria;
-
+  //Cria a propriedade ideia.colaborador=<Colaborador>
   @ManyToOne(() => Colaborador, (colaborador) => colaborador.noticias)
   @JoinColumn({ name: 'idColaborador' })
   colaborador: Colaborador;
 
+  //Cria a propriedade ideia.evento = <Evento>
+  @ManyToOne(() => Categoria, (categoria) => categoria.noticias)
+  @JoinColumn({ name: 'idCategoria' })
+  categoria: Categoria;
+
+  //Cria a propriedade ideia.tags=<Tag[]>//  da joinTable com a tabela ideiaTag
   @ManyToMany(() => Tag, (tag) => tag.noticias)
   @JoinTable({
     name: 'noticiaTag',

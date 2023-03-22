@@ -4,13 +4,13 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Noticia } from './noticia.entity';
 
-@Entity('tag', { database: 'news_database2' })
+
+@Entity('tag')
 export class Tag {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
@@ -35,7 +35,7 @@ export class Tag {
 
   @ManyToMany(() => Tag, (tag) => tag.noticias)
   @JoinTable({
-    name: 'ideiaTag',
+    name: 'noticiaTag',
     //tabela auxiliar ideiaTag(ideia+tag)
     joinColumn: {
       //coluna da model ideiaTag

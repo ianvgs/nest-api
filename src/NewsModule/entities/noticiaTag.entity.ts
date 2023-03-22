@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 //ENTITY === MODEL
-@Entity('noticiaTag', { database: 'news_database2' })
+@Entity('noticiaTag')
 export class NoticiaTag {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
@@ -16,7 +16,7 @@ export class NoticiaTag {
   @Column({ name: 'idTag' })
   idTag: number;
 
-  @Column({ name: 'idIdeia' })
+  @Column({ name: 'idNoticia' })
   idNoticia: number;
 
   @Column({ name: 'ativo' })

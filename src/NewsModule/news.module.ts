@@ -7,33 +7,41 @@ import { Categoria } from './entities/categoria.entity';
 import { Noticia } from './entities/noticia.entity';
 import { Tag } from './entities/tag.entity';
 import { NoticiaTag } from './entities/noticiaTag.entity';
-
-import { UcCadastrarNoticia } from './useCases/noticiaUseCases/UcCadastrarNoticia';
-
-
 //@Controllers
 import { NewsController } from './news.controller';
 import { NoticiaController } from './controllers/noticia.controller';
-
+import { ColaboradorController } from './controllers/colaborador.controller';
 //@Services
 import { NoticiaService } from './services/noticia.service';
-
+import { ColaboradorService } from './services/colaborador.service';
 //@UseCases
 import { UcRecuperarTodasNoticias } from './useCases/noticiaUseCases/ucRecuperarTodasNoticias';
+import { UcRecuperarTodosColaboradores } from './useCases/colaboradorUseCases/UcRecuperarTodosColaboradores';
+import { CategoriaService } from './services/categoria.service';
+import { UcRecuperarTodasCategorias } from './useCases/categoriaUseCases/UcRecuperarTodasCategorias';
+import { CategoriaController } from './controllers/categoria.controller';
+import { UcRecuperarTodasTags } from './useCases/tagUseCases/UcRecuperarTodasTags';
+import { TagController } from './controllers/tag.controller';
+import { TagService } from './services/tag.service';
+
 
 @Module({
   imports: [
     TypeOrmModule.forFeature(
       [Colaborador, Categoria, Noticia, Tag, NoticiaTag],
-      'news_database2'
+      'news_connection'
     ),
   ],
-  controllers: [NewsController, NoticiaController],
+  controllers: [NewsController, CategoriaController, NoticiaController, TagController, ColaboradorController],
   providers: [
+    TagService,
+    CategoriaService,
     NoticiaService,
+    ColaboradorService,
+    UcRecuperarTodasTags,
     UcRecuperarTodasNoticias,
-    UcCadastrarNoticia,
-
+    UcRecuperarTodasCategorias,
+    UcRecuperarTodosColaboradores
   ],
 })
 export class NewsModule { }

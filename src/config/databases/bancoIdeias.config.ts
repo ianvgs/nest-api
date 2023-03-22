@@ -5,8 +5,8 @@ const DatabaseConfig = () => ({
   password: process.env.BANCO_IDEIAS_PASSWORD,
   database: process.env.BANCO_IDEIAS_DATABASE,
   port: parseInt(process.env.BANCO_IDEIAS_PORT),
-  synchronize: false,
-
+  /* synchronize: true, */
+  entities: ['dist/**/*.entity{.ts,.js}'],
   autoLoadEntities: true
 });
 
