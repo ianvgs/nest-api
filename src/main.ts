@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 import { ConfigService } from '@nestjs/config';
-import { RmqService } from './RabbitMQModule/rmq.service';
+/* import { RmqService } from './RabbitMQModule/rmq.service'; */
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
