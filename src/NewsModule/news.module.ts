@@ -6,7 +6,7 @@ import { Colaborador } from './entities/colaborador.entity';
 import { Categoria } from './entities/categoria.entity';
 import { Noticia } from './entities/noticia.entity';
 import { Tag } from './entities/tag.entity';
-import { NoticiaTag } from './entities/noticiaTag.entity';
+
 //@Controllers
 import { NewsController } from './news.controller';
 import { NoticiaController } from './controllers/noticia.controller';
@@ -32,7 +32,7 @@ import { UcCadastrarNoticia } from './useCases/noticiaUseCases/UcCadastrarNotici
 @Module({
   imports: [
     TypeOrmModule.forFeature(
-      [Colaborador, Categoria, Noticia, Tag, NoticiaTag],
+      [Colaborador, Categoria, Noticia, Tag],
       'news_connection'
     ),
   ],

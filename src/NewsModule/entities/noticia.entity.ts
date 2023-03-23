@@ -36,40 +36,37 @@ export class Noticia {
   @Column({ name: 'ativo' })
   ativo: string;
 
-  //default pra nao precisar passar na chamada
-  @CreateDateColumn(/* { default: new Date() } */)
+
+  @CreateDateColumn()
   createdAt: Date;
 
-  //default pra nao precisar passar na chamada
-  @UpdateDateColumn(/* { default: new Date() } */)
+
+  @UpdateDateColumn()
   updatedAt: Date;
 
-  //Cria a propriedade ideia.colaborador=<Colaborador>
+
   @ManyToOne(() => Colaborador, (colaborador) => colaborador.noticias)
   @JoinColumn({ name: 'idColaborador' })
   colaborador: Colaborador;
 
-  //Cria a propriedade ideia.evento = <Evento>
+
   @ManyToOne(() => Categoria, (categoria) => categoria.noticias)
   @JoinColumn({ name: 'idCategoria' })
   categoria: Categoria;
 
-  //Cria a propriedade ideia.tags=<Tag[]>//  da joinTable com a tabela ideiaTag
   @ManyToMany(() => Tag, (tag) => tag.noticias)
   @JoinTable({
-    name: 'noticiaTag',
-    //tabela auxiliar ideiaTag(ideia+tag)
-    joinColumn: {
-      //coluna da model ideiaTag
-      name: 'idNoticia',
-      foreignKeyConstraintName: 'fk_dept_user',
-    },
-    inverseJoinColumn: {
-      //coluna dessa model
-      referencedColumnName: 'id',
-      name: 'id',
-      foreignKeyConstraintName: 'fk_dept_dept',
-    },
+    name: 'noticiaTag'
   })
   tags: Tag[];
+  //JSON
+  /* {	
+    "titulo":"Como ganhar um milhão",
+    "resumo":"resumo de como ganhar um milhao",
+    "observacao":"de como ganhar um milhoa",
+    "idCategoria":"1",
+    "idColaborador":"1",
+    "ativo":"S",
+    "tags":[{"id":"1"}]
+  } */
 }
