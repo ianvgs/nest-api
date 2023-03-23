@@ -24,6 +24,9 @@ export class Noticia {
   @Column({ name: 'resumo' })
   resumo: string;
 
+  @Column({ name: 'views', default: 0 })
+  views: number;
+
   @Column({ name: 'observacao' })
   observacao: string;
 

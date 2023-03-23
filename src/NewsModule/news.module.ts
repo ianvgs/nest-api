@@ -24,7 +24,7 @@ import { UcRecuperarTodasTags } from './useCases/tagUseCases/UcRecuperarTodasTag
 import { TagController } from './controllers/tag.controller';
 import { TagService } from './services/tag.service';
 import { NewsService } from './services/news.service';
-import { UcRecuperarHomeInformações } from './useCases/newsUseCases/UcRecuperarHomeInformações';
+import { UcRecuperarHomeInformacoes } from './useCases/newsUseCases/UcRecuperarHomeInformacoes';
 import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarFormDataNoticia';
 import { UcCadastrarNoticia } from './useCases/noticiaUseCases/UcCadastrarNoticia';
 
@@ -45,7 +45,7 @@ import { UcCadastrarNoticia } from './useCases/noticiaUseCases/UcCadastrarNotici
     ColaboradorService,
     UcCadastrarNoticia,
     UcRecuperarFormDataNoticia,
-    UcRecuperarHomeInformações,
+    UcRecuperarHomeInformacoes,
     UcRecuperarTodasTags,
     UcRecuperarTodasNoticias,
     UcRecuperarTodasCategorias,

@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { UcRecuperarHomeInformações } from './useCases/newsUseCases/UcRecuperarHomeInformações';
+import { UcRecuperarHomeInformacoes } from './useCases/newsUseCases/UcRecuperarHomeInformacoes';
 import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarFormDataNoticia';
 
 @ApiTags('news')
@@ -8,7 +8,7 @@ import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarF
 export class NewsController {
 
   constructor(
-    private readonly ucRecuperarHomeInformações: UcRecuperarHomeInformações,
+    private readonly ucRecuperarHomeInformacoes: UcRecuperarHomeInformacoes,
     private readonly ucRecuperarFormDataNoticia: UcRecuperarFormDataNoticia,
 
   ) { }
@@ -27,7 +27,7 @@ export class NewsController {
   })
   async getHomeData() {
     console.log('carregando home news')
-    return await this.ucRecuperarHomeInformações.run();
+    return await this.ucRecuperarHomeInformacoes.run();
   }
 
   @Get('/cad-noticia-form/')

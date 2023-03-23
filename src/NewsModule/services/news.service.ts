@@ -19,9 +19,31 @@ export class NewsService {
         private readonly colabRepo: Repository<Colaborador>,
     ) { }
 
-    async recuperarHomeInformações(): Promise<any> {
-        const noticias = await this.noticiaRepo.find();
-        return noticias
+    async recuperarHomeInformacoes(): Promise<any[]> {
+        const ultimasNoticias = this.noticiaRepo.find({
+            relations: { categoria: true },
+            order: {
+                createdAt: "DESC",
+            },
+            take: 7
+        })
+        const noticiasMaisLidas = this.noticiaRepo.find({
+            relations: {
+                tags: true
+            },
+            order: {
+                views: "DESC",
+            },
+            take: 4
+        })
+
+        const [ultimasQuery, maisLidasQuery] = await Promise.all([ultimasNoticias, noticiasMaisLidas]);
+        const principal = ultimasQuery.reduce(function (prev, current) {
+            return (prev.views > current.views) ? prev : current
+        })
+        const ultimasFilter = ultimasQuery.filter(el => el.id !== principal.id);
+        const homeNoticias = [{ ultimasNoticias: ultimasFilter }, { noticiasMaisLidas: maisLidasQuery }, { noticiaPrincipal: principal }];
+        return homeNoticias;
     }
 
     async recuperarNoticiaFormData(): Promise<any> {
