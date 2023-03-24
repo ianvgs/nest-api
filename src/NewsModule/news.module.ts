@@ -27,6 +27,8 @@ import { NewsService } from './services/news.service';
 import { UcRecuperarHomeInformacoes } from './useCases/newsUseCases/UcRecuperarHomeInformacoes';
 import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarFormDataNoticia';
 import { UcCadastrarNoticia } from './useCases/noticiaUseCases/UcCadastrarNoticia';
+import { UcRecuperarNoticiasPorCategoria } from './useCases/categoriaUseCases/UcRecuperarNoticiasPorCategoria';
+import { UcRecuperarNoticiaPorId } from './useCases/noticiaUseCases/UcRecuperarNoticiaPorId';
 
 
 @Module({
@@ -44,6 +46,8 @@ import { UcCadastrarNoticia } from './useCases/noticiaUseCases/UcCadastrarNotici
     NoticiaService,
     ColaboradorService,
     UcCadastrarNoticia,
+    UcRecuperarNoticiaPorId,
+    UcRecuperarNoticiasPorCategoria,
     UcRecuperarFormDataNoticia,
     UcRecuperarHomeInformacoes,
     UcRecuperarTodasTags,

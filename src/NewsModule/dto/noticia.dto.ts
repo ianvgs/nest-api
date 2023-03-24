@@ -6,7 +6,7 @@ export class CreateNoticiaDto {
 
   resumo: string;
 
-  observacao: string;
+  texto: string;
 
   idCategoria: number;
 

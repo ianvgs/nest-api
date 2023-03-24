@@ -20,11 +20,11 @@ export class NoticiaService {
   async cadastrarNoticia(props: Partial<Noticia>): Promise<Noticia> {
     console.log(props)
 
-    const { titulo, resumo, observacao, idCategoria, idColaborador, tags } = props;
+    const { titulo, resumo, texto, idCategoria, idColaborador, tags } = props;
     const createdNoticia = this.noticiaRepo.create({
       titulo,
       resumo,
-      observacao,
+      texto,
       idCategoria,
       idColaborador,
       ativo: "S",
@@ -34,5 +34,20 @@ export class NoticiaService {
     });
     const savedNoticia = await this.noticiaRepo.save(createdNoticia);
     return savedNoticia;
+  }
+
+  async recuperarNoticiaPorId(id: number) {
+
+    const noticia = await this.noticiaRepo.findOne({
+      where: {
+        id: id
+      },
+      relations: {
+        categoria: true,
+        colaborador: true
+      }
+    });
+    return noticia;
+
   }
 }

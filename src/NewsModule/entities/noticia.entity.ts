@@ -24,11 +24,11 @@ export class Noticia {
   @Column({ name: 'resumo' })
   resumo: string;
 
+  @Column({ name: 'texto' })
+  texto: string;
+
   @Column({ name: 'views', default: 0 })
   views: number;
-
-  @Column({ name: 'observacao' })
-  observacao: string;
 
   @Column({ name: 'idCategoria' })
   idCategoria: number;
@@ -66,7 +66,7 @@ export class Noticia {
   /* {	
     "titulo":"Como ganhar um milhão",
     "resumo":"resumo de como ganhar um milhao",
-    "observacao":"de como ganhar um milhoa",
+    "texto":"de como ganhar um milhoa",
     "idCategoria":"1",
     "idColaborador":"1",
     "ativo":"S",
