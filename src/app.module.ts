@@ -10,7 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
 import DatabasesConfig from './config/databases.config';
 import { MicroservicerModule } from './microservicer/microservicer.module';
-import { BancoIdeiasModule } from './BancoIdeiasModule/bancoIdeias.module';
+
 
 @Module({
   imports: [
@@ -50,7 +50,7 @@ import { BancoIdeiasModule } from './BancoIdeiasModule/bancoIdeias.module';
     UsersModule,
     NewsModule,
     MicroservicerModule,
-    BancoIdeiasModule
+
   ],
   controllers: [AppController],
   providers: [],

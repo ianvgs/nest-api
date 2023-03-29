@@ -6,6 +6,7 @@ import { Colaborador } from './entities/colaborador.entity';
 import { Categoria } from './entities/categoria.entity';
 import { Noticia } from './entities/noticia.entity';
 import { Tag } from './entities/tag.entity';
+import { DadosEconomicos } from './entities/dados_economicos.entity';
 
 //@Controllers
 import { NewsController } from './news.controller';
@@ -29,22 +30,25 @@ import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarF
 import { UcCadastrarNoticia } from './useCases/noticiaUseCases/UcCadastrarNoticia';
 import { UcRecuperarNoticiasPorCategoria } from './useCases/categoriaUseCases/UcRecuperarNoticiasPorCategoria';
 import { UcRecuperarNoticiaPorId } from './useCases/noticiaUseCases/UcRecuperarNoticiaPorId';
+import { UcRecuperarIndicesEconomicos } from './useCases/newsUseCases/UcRecuperarIndicesEconomicos';
 
 
 @Module({
   imports: [
     TypeOrmModule.forFeature(
-      [Colaborador, Categoria, Noticia, Tag],
+      [Colaborador, Categoria, Noticia, Tag, DadosEconomicos],
       'news_connection'
     ),
   ],
   controllers: [NewsController, CategoriaController, NoticiaController, TagController, ColaboradorController],
   providers: [
+    DadosEconomicos,
     NewsService,
     TagService,
     CategoriaService,
     NoticiaService,
     ColaboradorService,
+    UcRecuperarIndicesEconomicos,
     UcCadastrarNoticia,
     UcRecuperarNoticiaPorId,
     UcRecuperarNoticiasPorCategoria,

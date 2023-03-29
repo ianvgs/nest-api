@@ -2,6 +2,8 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UcRecuperarHomeInformacoes } from './useCases/newsUseCases/UcRecuperarHomeInformacoes';
 import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarFormDataNoticia';
+import { UcRecuperarIndicesEconomicos } from './useCases/newsUseCases/UcRecuperarIndicesEconomicos';
+
 
 @ApiTags('news')
 @Controller('news')
@@ -10,6 +12,7 @@ export class NewsController {
   constructor(
     private readonly ucRecuperarHomeInformacoes: UcRecuperarHomeInformacoes,
     private readonly ucRecuperarFormDataNoticia: UcRecuperarFormDataNoticia,
+    private readonly ucRecuperarIndicesEconomicos: UcRecuperarIndicesEconomicos,
 
   ) { }
 
@@ -38,4 +41,16 @@ export class NewsController {
     console.log('cad noticia')
     return await this.ucRecuperarFormDataNoticia.run();
   }
+
+  @Get('/dados-economicos-ipca-inpc-igpm/')
+  @ApiOperation({
+    summary: 'Carregando informações de indices economicos',
+  })
+  async getindicesEconomicos() {
+    return await this.ucRecuperarIndicesEconomicos.run();
+  }
+
+
+
+
 }

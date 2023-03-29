@@ -4,14 +4,14 @@ import { Noticia } from 'src/NewsModule/entities/noticia.entity';
 import { NewsService } from 'src/NewsModule/services/news.service';
 
 @Injectable()
-export class UcRecuperarHomeInformacoes {
+export class UcRecuperarIndicesEconomicos {
     constructor(private readonly newsService: NewsService) { }
 
-    async run(): Promise<Noticia[]> {
+    async run(): Promise<any[]> {
         //se erro ou se o retorno nao tiver ultimasnoticias/maislidas, 
         //enviar email avisando
         //retornar erro
-        return this.newsService.recuperarHomeInformacoes()
+        return this.newsService.recuperarDadosIndicesEconomicos()
     }
 }
 
