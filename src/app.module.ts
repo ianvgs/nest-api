@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './UsersModule/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MailerModuler } from './MailerModule/mailer.module';
@@ -9,7 +8,7 @@ import { NewsModule } from './NewsModule/news.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
 import DatabasesConfig from './config/databases.config';
-import { MicroservicerModule } from './microservicer/microservicer.module';
+import { MicroServicesModule } from './MicroservicesModule/microservicer.module';
 
 
 @Module({
@@ -31,13 +30,13 @@ import { MicroservicerModule } from './microservicer/microservicer.module';
         return configService.get<DataSourceOptions>('database.news');
       },
     }),
-    TypeOrmModule.forRootAsync({
+    /* TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       name: 'banco_ideias_connection',
       useFactory: async (configService: ConfigService) => {
         return configService.get<DataSourceOptions>('database.banco_ideias');
       },
-    }),
+    }), */
 
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -47,10 +46,8 @@ import { MicroservicerModule } from './microservicer/microservicer.module';
       inject: [ConfigService],
     }),
     MailerModuler,
-    UsersModule,
     NewsModule,
-    MicroservicerModule,
-
+    MicroServicesModule,
   ],
   controllers: [AppController],
   providers: [],

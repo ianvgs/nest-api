@@ -35,4 +35,4 @@ import { ConfigService } from '@nestjs/config';
   controllers: [MicroservicerController],
   providers: [MicroservicerService]
 })
-export class MicroservicerModule { }
+export class MicroServicesModule { }
