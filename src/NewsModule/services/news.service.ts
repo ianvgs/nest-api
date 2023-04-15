@@ -65,7 +65,7 @@ export class NewsService {
 
         const homeNoticias = [{ ultimasNoticias: ultimasFilter }, { noticiasMaisLidas: maisLidasQuery }, { noticiaPrincipal: principal }, { dadosEconomicos: dadosEconomicosFormatados }];
 
-        console.log(homeNoticias)
+
 
         return homeNoticias;
     }

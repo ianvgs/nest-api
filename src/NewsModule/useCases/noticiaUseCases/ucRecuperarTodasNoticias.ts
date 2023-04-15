@@ -9,7 +9,6 @@ export class UcRecuperarTodasNoticias {
     constructor(private readonly noticiaService: NoticiaService) { }
 
     async run(): Promise<Noticia[]> {
-        console.log('usecase')
         return this.noticiaService.recuperarTodasNoticias();
     }
 }

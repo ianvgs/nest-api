@@ -28,8 +28,6 @@ export class CategoriaService {
       }
     })
 
-    console.log(noticiasPorCategorias)
-
     return noticiasPorCategorias
 
   }

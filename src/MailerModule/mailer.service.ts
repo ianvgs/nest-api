@@ -5,7 +5,6 @@ import { MailerService } from '@nestjs-modules/mailer';
 export class MailerServicer {
     constructor(private readonly mailerService: MailerService) { }
     public sendy() {
-        console.log('aqui');
         return this.mailerService
             .sendMail({
                 to: 'ian.vgs@hotmail.com', // list of receivers

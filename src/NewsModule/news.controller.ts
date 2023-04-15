@@ -29,7 +29,6 @@ export class NewsController {
     summary: 'Carregando informações da homepage',
   })
   async getHomeData() {
-    console.log('carregando home news')
     return await this.ucRecuperarHomeInformacoes.run();
   }
 
@@ -38,7 +37,6 @@ export class NewsController {
     summary: 'Carregando informações da homepage',
   })
   async getCadConfigs() {
-    console.log('cad noticia')
     return await this.ucRecuperarFormDataNoticia.run();
   }
 

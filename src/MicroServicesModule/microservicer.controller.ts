@@ -9,13 +9,11 @@ export class MicroservicerController {
 
   @Post('/animal/')
   createAnimal(@Body() createAnimalRequest: CreateAnimalRequest) {
-    console.log('animal')
     return this.microservicerService.create(createAnimalRequest);
   }
 
   @Post('/analytics')
   createAnalytics(@Body() createAnimalRequest: CreateAnimalRequest) {
-    console.log('analytics')
     return this.microservicerService.createAnalytics(createAnimalRequest);
   }
 
@@ -26,7 +24,6 @@ export class MicroservicerController {
 
   @Post('/billing')
   createBillings() {
-    console.log('Billings')
     return this.microservicerService.createBilling();
   }
 

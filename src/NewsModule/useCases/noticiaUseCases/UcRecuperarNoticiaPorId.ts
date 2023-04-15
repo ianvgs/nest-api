@@ -9,7 +9,6 @@ export class UcRecuperarNoticiaPorId {
     constructor(private readonly noticiaService: NoticiaService) { }
 
     async run(id: number): Promise<Noticia> {
-        console.log('usecase')
         return this.noticiaService.recuperarNoticiaPorId(id);
     }
 }

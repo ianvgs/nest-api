@@ -23,7 +23,6 @@ export class CategoriaController {
     summary: 'Obtem os dados dos colaboradores.',
   })
   async getTodasCategorias(): Promise<Categoria[]> {
-    console.log('Get Categ Controller')
     return await this.ucRecuperarTodasCategorias.run();
   }
 
