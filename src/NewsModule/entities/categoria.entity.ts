@@ -17,6 +17,9 @@ export class Categoria {
   @Column({ name: 'nome' })
   nome: string;
 
+  @Column({ name: 'sufixurl' })
+  sufixurl: string;
+
   @Column({ name: 'descricao' })
   descricao: string;
 
