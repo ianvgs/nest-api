@@ -21,14 +21,12 @@ export class TagService {
   }
 
   async cadastrarTag(props: Partial<Tag>): Promise<any> {
-    const { tag, descricao } = props;
-
+    const { tag, color, idSite } = props;
     const tagCriada = this.tagRepo.create({
-      tag: tag,
-      descricao: descricao,
-      ativo: '1',
+      tag,
+      color,
+      idSite,
       createdAt: new Date(),
-      updatedAt: new Date(),
     });
 
     await this.tagRepo.save(tagCriada);

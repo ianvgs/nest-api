@@ -31,4 +31,17 @@ export class CategoriaService {
     return noticiasPorCategorias
 
   }
+  async cadastrarCategoria(props: Partial<Categoria>): Promise<Categoria> {
+
+    const { nome, sufixurl, descricao, idSite } = props;
+    const createdCategoria = this.categoriaRepo.create({
+      nome, sufixurl, descricao, idSite,
+
+      createdAt: new Date(),
+
+    });
+    const savedCategoria = await this.categoriaRepo.save(createdCategoria);
+    return savedCategoria;
+  }
+
 }

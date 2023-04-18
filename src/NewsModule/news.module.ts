@@ -31,6 +31,9 @@ import { UcCadastrarNoticia } from './useCases/noticiaUseCases/UcCadastrarNotici
 import { UcRecuperarNoticiasPorCategoria } from './useCases/categoriaUseCases/UcRecuperarNoticiasPorCategoria';
 import { UcRecuperarNoticiaPorId } from './useCases/noticiaUseCases/UcRecuperarNoticiaPorId';
 import { UcRecuperarIndicesEconomicos } from './useCases/newsUseCases/UcRecuperarIndicesEconomicos';
+import { UcCadastrarCategoria } from './useCases/categoriaUseCases/UcCadastrarCategoria';
+import { UcCadastrarTag } from './useCases/tagUseCases/UcCadastrarTag';
+
 
 
 @Module({
@@ -48,6 +51,8 @@ import { UcRecuperarIndicesEconomicos } from './useCases/newsUseCases/UcRecupera
     CategoriaService,
     NoticiaService,
     ColaboradorService,
+    UcCadastrarTag,
+    UcCadastrarCategoria,
     UcRecuperarIndicesEconomicos,
     UcCadastrarNoticia,
     UcRecuperarNoticiaPorId,

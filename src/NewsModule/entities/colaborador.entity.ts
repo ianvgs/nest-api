@@ -19,6 +19,12 @@ export class Colaborador {
   @Column({ name: 'nome' })
   nome: string;
 
+  @Column({ name: 'sobrenome' })
+  sobrenome: string;
+
+  @Column({ name: 'apresentacao' })
+  apresentacao: string;
+
   @Column({ name: 'email' })
   email: string;
 

@@ -19,20 +19,14 @@ export class Tag {
   @Column({ name: 'tag' })
   tag: string;
 
-  @Column({ name: 'descricao' })
-  descricao: string;
-
-  @Column({ name: 'ativo' })
-  ativo: string;
+  @Column({ name: 'idSite' })
+  idSite: number;
 
   @Column({ name: 'color' })
   color: string;
 
   @CreateDateColumn()
   createdAt: Date; // Creation date
-
-  @UpdateDateColumn()
-  updatedAt: Date; // Last updated date
 
   @ManyToMany(() => Noticia, (noticia) => noticia.tags)
   noticias: Noticia[];

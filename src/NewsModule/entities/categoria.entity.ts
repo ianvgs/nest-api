@@ -23,26 +23,11 @@ export class Categoria {
   @Column({ name: 'descricao' })
   descricao: string;
 
-  @Column({ name: 'img' })
-  img: string;
-
-  @Column({ name: 'bloqueio' })
-  bloqueio: string;
-
-  @Column({ name: 'ativo' })
-  ativo: string;
-
-  @Column({
-    type: 'datetime',
-    nullable: true,
-  })
-  dataVencimento: string;
-
   @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @Column({ name: 'idSite' })
+  idSite: number;
 
   //Cria a propriedade evento.ideias = <Ideias[]>
   @OneToMany(() => Noticia, (noticia) => noticia.categoria)

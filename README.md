@@ -10,9 +10,9 @@ Rename the file ".env.example" to ".env" and fill credentials for MYSQL and MONG
 At SQL connection create a database called "news_database".
 
 
-## Running the app
+## Running the app locally
 ```bash
-$ npm run start
+$ npm run start:dev
 ```
 
 Server must start at : 'http://localhost:8000'
