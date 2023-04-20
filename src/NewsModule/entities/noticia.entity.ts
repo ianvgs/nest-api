@@ -18,6 +18,10 @@ export class Noticia {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
+  @Column({ name: 'idSite' })
+  idSite: number
+
+
   @Column({ name: 'titulo' })
   titulo: string;
 

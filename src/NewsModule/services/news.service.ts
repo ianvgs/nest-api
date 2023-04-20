@@ -22,15 +22,24 @@ export class NewsService {
         private readonly dadosEconomicosRepo: Repository<DadosEconomicos>,
     ) { }
 
-    async recuperarHomeInformacoes(): Promise<any[]> {
+    async recuperarHomeInformacoes(layoutType, idSite): Promise<any[]> {
+
+        //Layout Type= [1] => Recupera 7 noticias (Finanças, etc...)
+        //Layout Type= [1] => Recupera 5 noticias (Baboseiras, etc...)
+        const howMany = [0, 7, 5]
+
         const ultimasNoticias = this.noticiaRepo.find({
+            where: { idSite },
             relations: { categoria: true },
             order: {
                 createdAt: "DESC",
             },
-            take: 7
+            take: howMany[layoutType],
         })
+
+
         const noticiasMaisLidas = this.noticiaRepo.find({
+            where: { idSite },
             relations: {
                 tags: true
             },

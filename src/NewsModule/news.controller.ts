@@ -1,8 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UcRecuperarHomeInformacoes } from './useCases/newsUseCases/UcRecuperarHomeInformacoes';
 import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarFormDataNoticia';
 import { UcRecuperarIndicesEconomicos } from './useCases/newsUseCases/UcRecuperarIndicesEconomicos';
+import { Request } from 'express';
 
 
 @ApiTags('news')
@@ -28,8 +29,10 @@ export class NewsController {
   @ApiOperation({
     summary: 'Carregando informações da homepage',
   })
-  async getHomeData() {
-    return await this.ucRecuperarHomeInformacoes.run();
+  async getHomeData(@Req() req: Request) {
+    const layoutType = Number(req.query.layoutType);
+    const idSite = Number(req?.query.layoutType);
+    return await this.ucRecuperarHomeInformacoes.run(layoutType, idSite);
   }
 
   @Get('/cad-noticia-form/')
