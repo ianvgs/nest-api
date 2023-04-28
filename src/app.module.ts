@@ -8,7 +8,7 @@ import { NewsModule } from './NewsModule/news.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
 import DatabasesConfig from './config/databases.config';
-import { MicroServicesModule } from './MicroservicesModule/microservicer.module';
+import { MicroServicesModule } from './MicroServicesModule/microservicer.module';
 
 
 @Module({
