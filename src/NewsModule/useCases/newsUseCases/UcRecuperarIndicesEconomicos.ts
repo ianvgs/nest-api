@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Noticia } from 'src/NewsModule/entities/noticia.entity';
+import { Injectable } from '@nestjs/common';
 import { NewsService } from 'src/NewsModule/services/news.service';
 
 @Injectable()

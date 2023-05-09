@@ -1,11 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Noticia } from '../entities/noticia.entity';
 import { Categoria } from '../entities/categoria.entity';
-import { Tag } from '../entities/tag.entity';
 import { Colaborador } from '../entities/colaborador.entity';
 import { DadosEconomicos } from '../entities/dados_economicos.entity';
+import { Noticia } from '../entities/noticia.entity';
+import { Tag } from '../entities/tag.entity';
 
 @Injectable()
 export class NewsService {

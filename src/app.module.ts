@@ -1,17 +1,14 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-/* import { MailerModuler } from './MailerModule/mailer.module'; */
-import { AppController } from './app.controller';
 import * as Joi from 'joi';
 import { NewsModule } from './NewsModule/news.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
 import DatabasesConfig from './config/databases.config';
 import { AuthPackageModule } from './AuthPackageModule/auth-package.module';
+/* import { MailerModuler } from './MailerModule/mailer.module'; */
 /* import { MicroServicesModule } from './MicroServicesModule/microservicer.module'; */
-
-
 
 @Module({
   imports: [
@@ -22,8 +19,7 @@ import { AuthPackageModule } from './AuthPackageModule/auth-package.module';
       validationSchema: Joi.object({
         MONGODB_URI: Joi.string().required(),
         PORT: Joi.number().required(),
-      }) /* 
-            envFilePath :'./???' */,
+      })
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
@@ -47,15 +43,10 @@ import { AuthPackageModule } from './AuthPackageModule/auth-package.module';
       }),
       inject: [ConfigService],
     }),
-    /*     MailerModuler, */
+    /*MailerModuler*/
+    /*MicroServicesModule*/
     NewsModule,
     AuthPackageModule
-
-    /*   MicroServicesModule, */
-  ],
-  controllers: [AppController],
-  providers: [
-
   ],
 })
 export class AppModule { }
