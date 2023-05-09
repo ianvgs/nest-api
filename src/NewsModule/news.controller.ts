@@ -1,21 +1,20 @@
-import { Body, Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { UcRecuperarHomeInformacoes } from './useCases/newsUseCases/UcRecuperarHomeInformacoes';
-import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarFormDataNoticia';
-import { UcRecuperarIndicesEconomicos } from './useCases/newsUseCases/UcRecuperarIndicesEconomicos';
 import { Request } from 'express';
+import { UcRecuperarFormDataNoticia } from './useCases/newsUseCases/UcRecuperarFormDataNoticia';
+import { UcRecuperarHomeInformacoes } from './useCases/newsUseCases/UcRecuperarHomeInformacoes';
+import { UcRecuperarIndicesEconomicos } from './useCases/newsUseCases/UcRecuperarIndicesEconomicos';
 
 
 @ApiTags('news')
 @Controller('news')
 export class NewsController {
-
   constructor(
     private readonly ucRecuperarHomeInformacoes: UcRecuperarHomeInformacoes,
     private readonly ucRecuperarFormDataNoticia: UcRecuperarFormDataNoticia,
     private readonly ucRecuperarIndicesEconomicos: UcRecuperarIndicesEconomicos,
-
   ) { }
+
 
   @Get()
   @ApiOperation({
@@ -50,8 +49,4 @@ export class NewsController {
   async getindicesEconomicos() {
     return await this.ucRecuperarIndicesEconomicos.run();
   }
-
-
-
-
 }

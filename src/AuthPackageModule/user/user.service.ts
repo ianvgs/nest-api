@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -7,19 +7,22 @@ import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UserService {
-
   constructor(
     @InjectRepository(User, 'news_connection')
     private readonly userRepo: Repository<User>,
   ) { }
 
 
-
-
   async create(createUserDto: CreateUserDto) {
-
     const { name, email, password } = createUserDto
-    //verificar se ja tem alguem usando email....
+
+    const verifyEmailInUse = await this.findByEmail(email)
+    if (verifyEmailInUse) {
+      throw new BadRequestException(
+        `Oops! O e-mail informado já está sendo utilizado.`,
+      );
+    }
+
     const generateNewUser = this.userRepo.create({
       name,
       password: await bcrypt.hash(password, 10),
@@ -28,11 +31,9 @@ export class UserService {
       updatedAt: new Date(),
     });
 
-    console.log(generateNewUser)
-
     const createdUser = await this.userRepo.save(generateNewUser);
 
-    //alterar depois pra algo melhor
+    //Ver como modificar na model pra não devolver o valor do password
     return {
       ...createdUser,
       password: undefined
@@ -41,7 +42,6 @@ export class UserService {
 
 
   async findByEmail(email: string) {
-    console.log('entrou no findemail')
     return await this.userRepo.findOne({
       where: {
         email

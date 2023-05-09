@@ -8,9 +8,9 @@ import { NewsModule } from './NewsModule/news.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
 import DatabasesConfig from './config/databases.config';
+import { AuthPackageModule } from './AuthPackageModule/auth-package.module';
 /* import { MicroServicesModule } from './MicroServicesModule/microservicer.module'; */
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
+
 
 
 @Module({
@@ -49,8 +49,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     /*     MailerModuler, */
     NewsModule,
-    UserModule,
-    AuthModule
+    AuthPackageModule
+
     /*   MicroServicesModule, */
   ],
   controllers: [AppController],
