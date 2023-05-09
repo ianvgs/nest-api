@@ -9,6 +9,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
 import DatabasesConfig from './config/databases.config';
 /* import { MicroServicesModule } from './MicroServicesModule/microservicer.module'; */
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -47,9 +49,13 @@ import DatabasesConfig from './config/databases.config';
     }),
     /*     MailerModuler, */
     NewsModule,
+    UserModule,
+    AuthModule
     /*   MicroServicesModule, */
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [
+
+  ],
 })
 export class AppModule { }
