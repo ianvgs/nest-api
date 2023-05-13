@@ -46,7 +46,7 @@ import { AuthPackageModule } from './AuthPackageModule/auth-package.module';
     /*MailerModuler*/
     /*MicroServicesModule*/
     NewsModule,
-    AuthPackageModule
+    /* AuthPackageModule */
   ],
 })
 export class AppModule { }
