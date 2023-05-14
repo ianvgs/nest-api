@@ -29,8 +29,12 @@ export class NewsController {
     summary: 'Carregando informações da homepage',
   })
   async getHomeData(@Req() req: Request) {
+
+
     const layoutType = Number(req.query.layoutType);
     const idSite = Number(req?.query.layoutType);
+    console.log('layoutType' + layoutType)
+    console.log('idSite' + idSite)
     return await this.ucRecuperarHomeInformacoes.run(layoutType, idSite);
   }
 
