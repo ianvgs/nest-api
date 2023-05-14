@@ -37,7 +37,7 @@ export class NoticiaService {
   }
 
   async recuperarNoticiaPorId(id: number) {
-
+    //Recupera a noticia
     const noticia = await this.noticiaRepo.findOne({
       where: {
         id: id
@@ -47,6 +47,10 @@ export class NoticiaService {
         colaborador: true
       }
     });
+    //Incrementa o numero de views
+    noticia.views = noticia.views + 1
+    await this.noticiaRepo.save(noticia)
+
     return noticia;
 
   }
