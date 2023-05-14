@@ -6,6 +6,7 @@ import { Colaborador } from '../entities/colaborador.entity';
 import { DadosEconomicos } from '../entities/dados_economicos.entity';
 import { Noticia } from '../entities/noticia.entity';
 import { Tag } from '../entities/tag.entity';
+import { type } from 'os';
 
 @Injectable()
 export class NewsService {
@@ -85,22 +86,29 @@ export class NewsService {
         return homeNoticias;
     }
 
-    async recuperarNoticiaFormData(): Promise<any> {
+    async recuperarNoticiaFormData(idSite: number): Promise<any> {
+
+
+
         const categorias = this.categRepo
             .createQueryBuilder('categoria')
             .select(['id AS value', 'nome AS label'])
+            .where("categoria.idSite = :idSite", { idSite })
             .getRawMany();
         const tags = await this.tagRepo
             .createQueryBuilder('tag')
             .select(['id AS value', 'tag AS label', 'color'])
+            .where("tag.idSite = :idSite", { idSite })
             .getRawMany();
 
         const colabs = await this.colabRepo
             .createQueryBuilder('colaborador')
             .select(['id AS value', 'nome AS label'])
+            .where("colaborador.idSite = :idSite", { idSite })
             .getRawMany();
-        const [eventosQuery, tagsQuery, colabsQuery] = await Promise.all([categorias, tags, colabs]);
-        const cadastrarNoticiasCofigs = [{ categorias: eventosQuery, tags: tagsQuery, colaboradores: colabsQuery }];
+        const [categsQuery, tagsQuery, colabsQuery] = await Promise.all([categorias, tags, colabs]);
+        /*  console.log(categsQuery) */
+        const cadastrarNoticiasCofigs = [{ categorias: categsQuery, tags: tagsQuery, colaboradores: colabsQuery }];
         return cadastrarNoticiasCofigs;
     }
 

@@ -8,8 +8,8 @@ import { NewsService } from 'src/NewsModule/services/news.service';
 export class UcRecuperarFormDataNoticia {
     constructor(private readonly newsService: NewsService) { }
 
-    async run(): Promise<any> {
-        return this.newsService.recuperarNoticiaFormData()
+    async run(idSite: number): Promise<any> {
+        return this.newsService.recuperarNoticiaFormData(idSite)
     }
 }
 

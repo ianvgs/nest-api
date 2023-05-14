@@ -41,7 +41,6 @@ export class CategoriaService {
 
   }
   async cadastrarCategoria(props: Partial<Categoria>): Promise<Categoria> {
-
     const { nome, sufixurl, descricao, idSite } = props;
     const createdCategoria = this.categoriaRepo.create({
       nome, sufixurl, descricao, idSite,
