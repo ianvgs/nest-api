@@ -24,12 +24,13 @@ export class NewsService {
 
     async recuperarHomeInformacoes(layoutType, idSite): Promise<any[]> {
 
-        //Layout Type= [1] => Recupera 7 noticias (Finanças, etc...)
-        //Layout Type= [1] => Recupera 5 noticias (Baboseiras, etc...)
+        //Layout Type= [0] => Nunca vem 0
+        //Layout Type= [1] => Recupera 7 noticias, devolve 1 principal + 6 pro mural (Finanças, etc...)
+        //Layout Type= [2] => Recupera 5 noticias, devolve 1 principal + 4 pro mural  (Baboseiras, etc...)
         const howMany = [0, 7, 5]
 
         const ultimasNoticias = this.noticiaRepo.find({
-            where: { idSite },
+            where: { idSite: idSite },
             relations: { categoria: true },
             order: {
                 createdAt: "DESC",
@@ -38,8 +39,9 @@ export class NewsService {
         })
 
 
+        //4 Noticias pra mostrar no carroussel mais lidos
         const noticiasMaisLidas = this.noticiaRepo.find({
-            where: { idSite },
+            where: { idSite: idSite },
             relations: {
                 tags: true
             },
@@ -50,19 +52,22 @@ export class NewsService {
         })
 
         const [ultimasQuery, maisLidasQuery] = await Promise.all([ultimasNoticias, noticiasMaisLidas]);
+
+        //Calcula qual vai ser a noticia principal (+lida entre as recuperadas)
         const principal = ultimasQuery.reduce(function (prev, current) {
             return (prev.views > current.views) ? prev : current
         })
+
+        //Retorna as ultimas tirando a ultima + lida que vai separado
         const ultimasFilter = ultimasQuery.filter(el => el.id !== principal.id);
 
 
-
+        //Calculo de dados economicos.
         const dados = await this.dadosEconomicosRepo.find({
             order: {
                 mes: "DESC",
             },
             take: 3
-
         })
         const ipcaFilter = dados.filter(el => el.indice === "IPCA")
         const inpcFilter = dados.filter(el => el.indice === "INPC")
@@ -72,10 +77,8 @@ export class NewsService {
 
 
 
+        //Modelagem do tipo objeto pra retorno front-end
         const homeNoticias = [{ ultimasNoticias: ultimasFilter }, { noticiasMaisLidas: maisLidasQuery }, { noticiaPrincipal: principal }, { dadosEconomicos: dadosEconomicosFormatados }];
-
-
-
         return homeNoticias;
     }
 
