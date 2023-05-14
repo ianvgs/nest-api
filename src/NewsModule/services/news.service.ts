@@ -52,11 +52,14 @@ export class NewsService {
         })
 
         const [ultimasQuery, maisLidasQuery] = await Promise.all([ultimasNoticias, noticiasMaisLidas]);
+        /*  console.log(ultimasQuery) */
 
         //Calcula qual vai ser a noticia principal (+lida entre as recuperadas)
         const principal = ultimasQuery.reduce(function (prev, current) {
             return (prev.views > current.views) ? prev : current
         })
+
+        /* console.log(principal) */
 
         //Retorna as ultimas tirando a ultima + lida que vai separado
         const ultimasFilter = ultimasQuery.filter(el => el.id !== principal.id);

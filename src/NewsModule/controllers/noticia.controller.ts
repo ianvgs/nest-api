@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Noticia } from '../entities/noticia.entity';
 import { UcRecuperarTodasNoticias } from '../useCases/noticiaUseCases/ucRecuperarTodasNoticias';
 import { UcCadastrarNoticia } from '../useCases/noticiaUseCases/UcCadastrarNoticia';
 import { UcRecuperarNoticiaPorId } from '../useCases/noticiaUseCases/UcRecuperarNoticiaPorId';
+import { Request } from 'express';
 
 @ApiTags('noticia')
 @Controller('news/noticia')
@@ -33,8 +34,9 @@ export class NoticiaController {
     @ApiOperation({
         summary: 'Obtem os dados/ideias referentes ao evento informado em /evento/${idEvento}',
     })
-    async getCategoriaEspecifica(@Param('idNoticia') idNoticia: number): Promise<Noticia> {
-        return await this.ucRecuperarNoticiaPorId.run(idNoticia);
+    async getCategoriaEspecifica(@Param('idNoticia') idNoticia: number, @Req() req: Request): Promise<Noticia> {
+        const idSite = Number(req?.query.idSite);
+        return await this.ucRecuperarNoticiaPorId.run(idNoticia, idSite);
     }
 
 

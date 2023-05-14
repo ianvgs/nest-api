@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Noticia } from '../entities/noticia.entity';
@@ -36,7 +36,7 @@ export class NoticiaService {
     return savedNoticia;
   }
 
-  async recuperarNoticiaPorId(id: number) {
+  async recuperarNoticiaPorId(id: number, idSite: number) {
     //Recupera a noticia
     const noticia = await this.noticiaRepo.findOne({
       where: {
@@ -47,6 +47,13 @@ export class NoticiaService {
         colaborador: true
       }
     });
+
+
+    if (noticia.idSite != idSite) {
+      throw new BadRequestException('Noticia de outro site');
+    }
+
+
     //Incrementa o numero de views
     noticia.views = noticia.views + 1
     await this.noticiaRepo.save(noticia)

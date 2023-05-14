@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Categoria } from '../entities/categoria.entity';
@@ -18,7 +18,10 @@ export class CategoriaService {
     return categorias;
   }
 
-  async getNoticiasPorCategoria(nomeCategoria: string): Promise<Categoria> {
+  async getNoticiasPorCategoria(nomeCategoria: string, idSite: number): Promise<Categoria> {
+
+
+    //Possivelmente no futuro o where: sufixUrl
     const noticiasPorCategorias = await this.categoriaRepo.findOne({
       where: {
         nome: nomeCategoria,
@@ -27,6 +30,12 @@ export class CategoriaService {
         noticias: { colaborador: true }
       }
     })
+
+    if (noticiasPorCategorias.idSite != idSite) {
+      throw new BadRequestException('Noticia de outro site');
+    }
+
+
 
     return noticiasPorCategorias
 

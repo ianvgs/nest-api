@@ -6,7 +6,7 @@ import { CategoriaService } from 'src/NewsModule/services/categoria.service';
 @Injectable()
 export class UcRecuperarNoticiasPorCategoria {
     constructor(private readonly categoriaService: CategoriaService) { }
-    async run(nomeCategoria: string): Promise<Categoria> {
-        return this.categoriaService.getNoticiasPorCategoria(nomeCategoria);
+    async run(nomeCategoria: string, idSite: number): Promise<Categoria> {
+        return this.categoriaService.getNoticiasPorCategoria(nomeCategoria, idSite);
     }
 }
