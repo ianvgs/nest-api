@@ -22,7 +22,7 @@ async function bootstrap() {
   await app.startAllMicroservices(); */
 
   const configService = app.get(ConfigService);
-  app.enableCors(/* { origin: '*' } */)
+  app.enableCors({ origin: '*' })
   // da pra colocar o PORT no dotenv
   /* app.enableCors({
     origin: '*',
