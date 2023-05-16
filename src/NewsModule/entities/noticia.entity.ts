@@ -43,6 +43,12 @@ export class Noticia {
   @Column({ name: 'ativo' })
   ativo: string;
 
+  @Column({ name: 'imgPath' })
+  imgPath: string;
+
+  @Column({ select: false })
+  imageData: Buffer;
+
 
   @CreateDateColumn()
   createdAt: Date;
@@ -77,3 +83,5 @@ export class Noticia {
     "tags":[{"id":"1"}]
   } */
 }
+
+

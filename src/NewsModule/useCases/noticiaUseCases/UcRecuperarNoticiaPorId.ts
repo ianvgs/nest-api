@@ -8,7 +8,7 @@ import { NoticiaService } from 'src/NewsModule/services/noticia.service';
 export class UcRecuperarNoticiaPorId {
     constructor(private readonly noticiaService: NoticiaService) { }
 
-    async run(id: number, idSite: number): Promise<Noticia> {
+    async run(id: number, idSite: number): /* Promise<Noticia> */Promise<any> {
         return this.noticiaService.recuperarNoticiaPorId(id, idSite);
     }
 }

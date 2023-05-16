@@ -2,6 +2,8 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Noticia } from '../entities/noticia.entity';
+const fs = require('fs');
+const path = require('path');
 
 @Injectable()
 export class NoticiaService {
@@ -19,8 +21,9 @@ export class NoticiaService {
 
   async cadastrarNoticia(props: Partial<Noticia>): Promise<Noticia> {
 
-    const { titulo, resumo, texto, idCategoria, idColaborador, tags, idSite } = props;
+    const { titulo, resumo, texto, idCategoria, idColaborador, tags, idSite, imgPath } = props;
     const createdNoticia = this.noticiaRepo.create({
+      imgPath,
       idSite,
       titulo,
       resumo,
@@ -37,7 +40,7 @@ export class NoticiaService {
   }
 
   async recuperarNoticiaPorId(id: number, idSite: number) {
-    //Recupera a noticia
+
     const noticia = await this.noticiaRepo.findOne({
       where: {
         id: id
@@ -48,17 +51,28 @@ export class NoticiaService {
       }
     });
 
-
     if (noticia.idSite != idSite) {
       throw new BadRequestException('Noticia de outro site');
     }
 
+    if (!noticia) {
+      throw new BadRequestException('Noticia não encontrada');
+    }
 
-    //Incrementa o numero de views
+
     noticia.views = noticia.views + 1
     await this.noticiaRepo.save(noticia)
 
-    return noticia;
 
+    // Resolve the image file path
+    const imagePath = path.resolve(noticia.imgPath);
+    const imageData = await this.readImageFile(imagePath);
+    return { ...noticia, imageData };
+
+  }
+
+
+  private async readImageFile(imgPath: string): Promise<Buffer> {
+    return fs.promises.readFile(imgPath);
   }
 }

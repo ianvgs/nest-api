@@ -7,6 +7,8 @@ import { DadosEconomicos } from '../entities/dados_economicos.entity';
 import { Noticia } from '../entities/noticia.entity';
 import { Tag } from '../entities/tag.entity';
 import { type } from 'os';
+const fs = require('fs');
+const path = require('path');
 
 @Injectable()
 export class NewsService {
@@ -22,6 +24,10 @@ export class NewsService {
         @InjectRepository(DadosEconomicos, 'news_connection')
         private readonly dadosEconomicosRepo: Repository<DadosEconomicos>,
     ) { }
+
+    private async readImageFile(imgPath: string): Promise<Buffer> {
+        return fs.promises.readFile(imgPath);
+    }
 
     async recuperarHomeInformacoes(layoutType, idSite): Promise<any[]> {
 
@@ -53,6 +59,35 @@ export class NewsService {
         })
 
         const [ultimasQuery, maisLidasQuery] = await Promise.all([ultimasNoticias, noticiasMaisLidas]);
+
+        await Promise.all(ultimasQuery.map(async (element) => {
+            if (element.imgPath) {
+                const imagePath = path.resolve(element.imgPath);
+                element.imageData = await this.readImageFile(imagePath);
+            }
+        }));
+
+        console.log(ultimasQuery)
+
+        /*  ultimasQuery.forEach(async (element) => {
+             if (element.imgPath) {
+                 const imagePath = path.resolve(element.imgPath);
+                 return element.imageData = await this.readImageFile(imagePath);
+ 
+             }
+         }); */
+
+        /* console.log(ultimasQuery) */
+
+        maisLidasQuery.forEach(async (element) => {
+
+            if (element.imgPath) {
+                const imagePath = path.resolve(element.imgPath);
+                return element.imageData = await this.readImageFile(imagePath);
+            }
+        });
+
+
         /*  console.log(ultimasQuery) */
 
         //Calcula qual vai ser a noticia principal (+lida entre as recuperadas)

@@ -32,6 +32,7 @@ export class NoticiaController {
 
     @Post()
     async createNoticia(@Body() body: any): Promise<any> {
+        console.log(body)
         return await this.ucCadastrarNoticia.run(body);
     }
 
