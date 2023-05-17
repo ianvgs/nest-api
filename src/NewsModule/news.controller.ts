@@ -30,7 +30,8 @@ export class NewsController {
   })
   async getHomeData(@Req() req: Request) {
     const layoutType = Number(req.query.layoutType);
-    const idSite = Number(req?.query.layoutType);
+    const idSite = Number(req?.query.idSite);
+
     return await this.ucRecuperarHomeInformacoes.run(layoutType, idSite);
   }
 
