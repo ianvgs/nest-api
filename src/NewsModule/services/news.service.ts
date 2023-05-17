@@ -60,14 +60,13 @@ export class NewsService {
 
         const [ultimasQuery, maisLidasQuery] = await Promise.all([ultimasNoticias, noticiasMaisLidas]);
 
-        await Promise.all(ultimasQuery.map(async (element) => {
-            if (element.imgPath) {
-                const imagePath = path.resolve(element.imgPath);
-                element.imageData = await this.readImageFile(imagePath);
-            }
-        }));
+        /*   await Promise.all(ultimasQuery.map(async (element) => {
+              if (element.imgPath) {
+                  const imagePath = path.resolve(element.imgPath);
+                  element.imageData = await this.readImageFile(imagePath);
+              }
+          })); */
 
-        console.log(ultimasQuery)
 
         /*  ultimasQuery.forEach(async (element) => {
              if (element.imgPath) {
@@ -77,15 +76,14 @@ export class NewsService {
              }
          }); */
 
-        /* console.log(ultimasQuery) */
 
-        maisLidasQuery.forEach(async (element) => {
-
-            if (element.imgPath) {
-                const imagePath = path.resolve(element.imgPath);
-                return element.imageData = await this.readImageFile(imagePath);
-            }
-        });
+        /*  maisLidasQuery.forEach(async (element) => {
+ 
+             if (element.imgPath) {
+                 const imagePath = path.resolve(element.imgPath);
+                 return element.imageData = await this.readImageFile(imagePath);
+             }
+         }); */
 
 
         /*  console.log(ultimasQuery) */

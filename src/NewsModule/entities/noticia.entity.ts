@@ -46,13 +46,8 @@ export class Noticia {
   @Column({ name: 'imgPath' })
   imgPath: string;
 
-  @Column({ select: false })
-  imageData: Buffer;
-
-
   @CreateDateColumn()
   createdAt: Date;
-
 
   @UpdateDateColumn()
   updatedAt: Date;
