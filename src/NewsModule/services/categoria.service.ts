@@ -27,7 +27,7 @@ export class CategoriaService {
         nome: nomeCategoria,
       },
       relations: {
-        noticias: { colaborador: true }
+        noticias: { colaborador: true, tags: true }
       }
     })
 
