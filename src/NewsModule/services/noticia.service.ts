@@ -48,6 +48,7 @@ export class NoticiaService {
       relations: {
         categoria: true,
         colaborador: true
+        , tags: true
       }
     });
 
