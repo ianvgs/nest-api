@@ -1,16 +1,12 @@
-/* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Param, Post, Req, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Request } from 'express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+//Types@Models
 import { Noticia } from '../entities/noticia.entity';
+//UseCases
 import { UcRecuperarTodasNoticias } from '../useCases/noticiaUseCases/ucRecuperarTodasNoticias';
 import { UcCadastrarNoticia } from '../useCases/noticiaUseCases/UcCadastrarNoticia';
 import { UcRecuperarNoticiaPorId } from '../useCases/noticiaUseCases/UcRecuperarNoticiaPorId';
-import { Request } from 'express';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-
-
 
 @ApiTags('noticia')
 @Controller('news/noticia')
@@ -44,23 +40,4 @@ export class NoticiaController {
         const idSite = Number(req?.query.idSite);
         return await this.ucRecuperarNoticiaPorId.run(idNoticia, idSite);
     }
-
-    @Post('/upload')
-    @UseInterceptors(FileInterceptor('image', {
-        storage: diskStorage({
-            destination: './uploads',
-            filename: (req, file, callback) => {
-                const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-                const extension = extname(file.originalname);
-                callback(null, file.fieldname + '-' + uniqueSuffix + extension);
-            },
-        }),
-    }))
-    async uploadFile(@UploadedFile() file: any) {
-        return { uploadedImageFile: file };
-    }
-
-
-
-
 }

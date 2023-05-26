@@ -9,6 +9,7 @@ import DatabasesConfig from './config/databases.config';
 import { AuthPackageModule } from './AuthPackageModule/auth-package.module';
 /* import { MailerModuler } from './MailerModule/mailer.module'; */
 /* import { MicroServicesModule } from './MicroServicesModule/microservicer.module'; */
+import { UploaderModule } from './UploaderModule/uploader.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { AuthPackageModule } from './AuthPackageModule/auth-package.module';
     /*MailerModuler*/
     /*MicroServicesModule*/
     NewsModule,
+    UploaderModule,
     /*    AuthPackageModule */
   ],
 })
