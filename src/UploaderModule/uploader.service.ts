@@ -13,13 +13,19 @@ export class UploaderService {
     ) { }
 
     async uploadToS3(folderName: string, fileName: string, file: Buffer) {
-        const folderfilepath = `${folderName}/${fileName}`;
-        await this.s3Client.send(new PutObjectCommand({
-            Bucket: this.configService.getOrThrow('BUCKET_NAME') /* || 'bmizbucket' */,
+
+        const bucketName = this.configService.getOrThrow('BUCKET_NAME')
+        const folderfilepath = `${folderName}/${fileName}`
+
+        const result = await this.s3Client.send(new PutObjectCommand({
+            Bucket: bucketName /* || 'bmizbucket' */,
             Key: folderfilepath,
             Body: file
         }))
-        //presignedUrl = expires //cria uma url de acesso que expira...
-        //
+
+        if (result) {
+            return { createdUrl: `https://${bucketName}.s3.amazonaws.com/${folderName}/${fileName}` }
+        }
+
     }
 }

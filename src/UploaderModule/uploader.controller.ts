@@ -10,7 +10,7 @@ export class UploaderController {
     constructor(private readonly uploaderService: UploaderService) { }
 
     @Post('/:folderName')
-    @UseInterceptors(FileInterceptor('file'))
+    @UseInterceptors(FileInterceptor('image'))
     async uploadToBucket(@Param('folderName') folderName: string, @UploadedFile(new ParseFilePipe({
         validators: [
             //new MaxFileSizeValidator({ maxSize: 10000 }),
@@ -18,6 +18,7 @@ export class UploaderController {
         ]
     }))
     file: Express.Multer.File) {
+
         return await this.uploaderService.uploadToS3(folderName, file.originalname, file.buffer)
     }
 
