@@ -19,6 +19,16 @@ export class NoticiaService {
     return noticias;
   }
 
+  async getNoticiasParaBuild(idSite): Promise<any> {
+    const noticias = await this.noticiaRepo.
+      createQueryBuilder("noticia")
+      .select("noticia.id")
+      .where(idSite)
+      .getMany();
+
+    return noticias;
+  }
+
   async cadastrarNoticia(props: Partial<Noticia>): Promise<Noticia> {
 
     const { titulo, resumo, texto, idCategoria, idColaborador, tags, idSite, imgPath } = props;
@@ -43,7 +53,8 @@ export class NoticiaService {
 
     const noticia = await this.noticiaRepo.findOne({
       where: {
-        id: id
+        id,
+        idSite,
       },
       relations: {
         categoria: true,
@@ -52,10 +63,6 @@ export class NoticiaService {
       }
     });
 
-    if (noticia.idSite != idSite) {
-      throw new BadRequestException('Noticia de outro site');
-    }
-
     if (!noticia) {
       throw new BadRequestException('Noticia não encontrada');
     }
@@ -63,17 +70,10 @@ export class NoticiaService {
 
     noticia.views = noticia.views + 1
     await this.noticiaRepo.save(noticia)
-
-
-    // Resolve the image file path
-    const imagePath = path.resolve(noticia.imgPath);
-    const imageData = await this.readImageFile(imagePath);
-    return { ...noticia, imageData };
+    return noticia
 
   }
 
 
-  private async readImageFile(imgPath: string): Promise<Buffer> {
-    return fs.promises.readFile(imgPath);
-  }
+
 }

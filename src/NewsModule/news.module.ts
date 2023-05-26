@@ -33,6 +33,7 @@ import { UcRecuperarNoticiaPorId } from './useCases/noticiaUseCases/UcRecuperarN
 import { UcRecuperarIndicesEconomicos } from './useCases/newsUseCases/UcRecuperarIndicesEconomicos';
 import { UcCadastrarCategoria } from './useCases/categoriaUseCases/UcCadastrarCategoria';
 import { UcCadastrarTag } from './useCases/tagUseCases/UcCadastrarTag';
+import { UcGetNoticiasIdParaBuild } from './useCases/noticiaUseCases/UcGetNoticiasIdParaBuild';
 
 
 
@@ -62,7 +63,8 @@ import { UcCadastrarTag } from './useCases/tagUseCases/UcCadastrarTag';
     UcRecuperarTodasTags,
     UcRecuperarTodasNoticias,
     UcRecuperarTodasCategorias,
-    UcRecuperarTodosColaboradores
+    UcRecuperarTodosColaboradores,
+    UcGetNoticiasIdParaBuild
   ],
 })
 export class NewsModule { }

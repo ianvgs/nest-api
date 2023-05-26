@@ -120,9 +120,6 @@ export class NewsService {
     }
 
     async recuperarNoticiaFormData(idSite: number): Promise<any> {
-
-
-
         const categorias = this.categRepo
             .createQueryBuilder('categoria')
             .select(['id AS value', 'nome AS label'])
