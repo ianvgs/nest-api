@@ -1,13 +1,22 @@
-import { Controller, Param, ParseFilePipe, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, ParseFilePipe, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploaderService } from './uploader.service';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('uploader')
 export class UploaderController {
 
     constructor(private readonly uploaderService: UploaderService) { }
+
+    @Get()
+    @ApiOperation({
+        summary: 'Pagina Inicial da aplicação de Notícias',
+    })
+    getUpoloeaderModule() {
+        return 'Você acessou corretamente o módulo';
+    }
 
     @Post('/:folderName')
     @UseInterceptors(FileInterceptor('image'))

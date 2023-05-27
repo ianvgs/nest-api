@@ -1,5 +1,5 @@
 //@Node Modules
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 //@Models(entities)
 import { Colaborador } from './entities/colaborador.entity';
@@ -34,8 +34,9 @@ import { UcRecuperarIndicesEconomicos } from './useCases/newsUseCases/UcRecupera
 import { UcCadastrarCategoria } from './useCases/categoriaUseCases/UcCadastrarCategoria';
 import { UcCadastrarTag } from './useCases/tagUseCases/UcCadastrarTag';
 import { UcGetNoticiasIdParaBuild } from './useCases/noticiaUseCases/UcGetNoticiasIdParaBuild';
-
-
+import { ConfigService } from '@nestjs/config';
+import { ProjectNameMiddleware } from './middlewares/project-name.middleware';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -67,4 +68,18 @@ import { UcGetNoticiasIdParaBuild } from './useCases/noticiaUseCases/UcGetNotici
     UcGetNoticiasIdParaBuild
   ],
 })
-export class NewsModule { }
+export class NewsModule implements NestModule {
+  //sconstructor(private readonly configService: ConfigService) { }
+
+  configure(consumer: MiddlewareConsumer) {
+    //const basePath = this.configService.get<string>('BASE_PATH');
+    consumer
+      .apply
+      (ProjectNameMiddleware)
+      .exclude(
+      /*        { path: `${basePath}/api/auth`, method: RequestMethod.GET } */
+    )
+      //a rota até ..../api já está implicita
+      .forRoutes('/news');
+  }
+}
