@@ -105,7 +105,7 @@ export class NewsService {
             .where("colaborador.idSite = :idSite", { idSite })
             .getRawMany();
         const [categsQuery, tagsQuery, colabsQuery] = await Promise.all([categorias, tags, colabs]);
-        /*  console.log(categsQuery) */
+
         const cadastrarNoticiasCofigs = [{ categorias: categsQuery, tags: tagsQuery, colaboradores: colabsQuery }];
         return cadastrarNoticiasCofigs;
     }

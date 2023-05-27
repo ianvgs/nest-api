@@ -28,8 +28,6 @@ export class CategoriaService {
       }
     })
 
-
-    console.log("noticiasPorCategorias", noticiasPorCategorias)
     if (noticiasPorCategorias.idSite != idSite) {
       throw new BadRequestException('Noticia de outro site');
     }

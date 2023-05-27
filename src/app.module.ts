@@ -48,7 +48,7 @@ import { UploaderModule } from './UploaderModule/uploader.module';
     /*MicroServicesModule*/
     NewsModule,
     UploaderModule,
-    /*    AuthPackageModule */
+    AuthPackageModule
   ],
 })
 export class AppModule { }

@@ -1,20 +1,14 @@
+2 "modulos/"pacotes"
+-auth/
+-auth/user
+
+
+
 -Local guard funciona na rota de login.
 -Jwt guard declarado no modulo em que quer que seja usado
 -As rotas publicas devem preceder @IsPublic()
 
-######
-@Module({
-  controllers: [UserController],
-  providers: [UserService,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard
-    }
-  ],
-  exports: [UserService]
-})
-export class UserModule { }
-######
+
 
 
 @ROTAS:
@@ -25,16 +19,44 @@ POST-localhost:8000/api/user
 GET-localhost:8000/api/user/me
 *precisa enviar um bearer token
 
-### AUTH MODULE
-POST-localhost:8000/api/login (email e password)
-*retorna access_token 
 
-#####
 
 # @UseGuards(JwtAuthGuard)
 # @UseGuards(LocalAuthGuard)
 @CurrentUser()  somente funciona com @UseGuards(JwtAuthGuard) ou sem mas com o jwt espalhado por todo modulo.
 
+Module Config:
 
+Utilizar gloacalmente(como um middleware)
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard
+    }
+  ]
+  ***Desse jeito todos os modulos utilizam esse useClass, dai tem que ir nas rotas e declarar:
+
+  @Public()
+  @POST()
+  myPostFunction(){
+  }
+
+
+///////////
+ POST :8000/api/auth/user
+ Rota aberta (criar usuario)
+
+POST :8000/api/auth/login
+ Rota aberta (loginusuario)
+ retorna access_token
+
+Get :8000/api/auth/user
+ Rota fechada (informa access_token)
+ retorna o usuario
+ {
+	"id": 13,
+	"email": "emasissls@email.com",
+	"name": "test"
+}
 
 

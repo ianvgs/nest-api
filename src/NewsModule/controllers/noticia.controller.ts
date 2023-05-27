@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 //Types@Models
@@ -8,6 +8,9 @@ import { UcRecuperarTodasNoticias } from '../useCases/noticiaUseCases/ucRecupera
 import { UcCadastrarNoticia } from '../useCases/noticiaUseCases/UcCadastrarNoticia';
 import { UcRecuperarNoticiaPorId } from '../useCases/noticiaUseCases/UcRecuperarNoticiaPorId';
 import { UcGetNoticiasIdParaBuild } from '../useCases/noticiaUseCases/UcGetNoticiasIdParaBuild';
+
+//@GUARDS
+import { JwtAuthGuard } from '../../AuthPackageModule/auth/guards/jwt-auth-guard';
 
 @ApiTags('noticia')
 @Controller('news/noticia')
@@ -28,6 +31,8 @@ export class NoticiaController {
         return await this.ucRecuperarTodasNoticias.run();
     }
 
+    //precisa mandar o jwt recebido como "acess_token"
+    //@UseGuards(JwtAuthGuard)
     @Post()
     async createNoticia(@Body() body: any): Promise<any> {
 
@@ -39,12 +44,8 @@ export class NoticiaController {
         summary: 'Obtem os dados/ideias referentes ao evento informado em /evento/${idEvento}',
     })
     async getNoticiaEspecifica(@Param('idNoticia') idNoticia: number, @Req() req: Request): Promise<Noticia> {
-
-
         const idSite = Number(req?.query.idSite);
-        console.log("idSite", idSite)
         const result = await this.ucRecuperarNoticiaPorId.run(idNoticia, idSite);
-        console.log("result", result)
         return result
     }
 
