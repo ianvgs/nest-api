@@ -31,8 +31,9 @@ export class NoticiaService {
 
   async cadastrarNoticia(props: Partial<Noticia>): Promise<Noticia> {
 
-    const { titulo, resumo, texto, idCategoria, idColaborador, tags, idSite, imgPath } = props;
+    const { titulo, resumo, texto, idCategoria, idColaborador, tags, idSite, imgPath, imgAlterText } = props;
     const createdNoticia = this.noticiaRepo.create({
+      imgAlterText,
       imgPath,
       idSite,
       titulo,

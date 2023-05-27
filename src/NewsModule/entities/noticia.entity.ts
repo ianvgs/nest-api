@@ -46,6 +46,9 @@ export class Noticia {
   @Column({ name: 'imgPath' })
   imgPath: string;
 
+  @Column({ name: 'imgAlterText' })
+  imgAlterText: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

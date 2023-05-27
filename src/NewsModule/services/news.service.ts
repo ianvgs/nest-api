@@ -6,9 +6,7 @@ import { Colaborador } from '../entities/colaborador.entity';
 import { DadosEconomicos } from '../entities/dados_economicos.entity';
 import { Noticia } from '../entities/noticia.entity';
 import { Tag } from '../entities/tag.entity';
-import { type } from 'os';
-const fs = require('fs');
-const path = require('path');
+
 
 @Injectable()
 export class NewsService {
@@ -25,9 +23,7 @@ export class NewsService {
         private readonly dadosEconomicosRepo: Repository<DadosEconomicos>,
     ) { }
 
-    private async readImageFile(imgPath: string): Promise<Buffer> {
-        return fs.promises.readFile(imgPath);
-    }
+
 
     async recuperarHomeInformacoes(layoutType, idSite): Promise<any[]> {
 
@@ -36,67 +32,38 @@ export class NewsService {
         //Layout Type= [2] => Recupera 5 noticias, devolve 1 principal + 4 pro mural  (Baboseiras, etc...)
         const howMany = [0, 7, 5]
 
-        const ultimasNoticias = this.noticiaRepo.find({
-            where: { idSite: idSite },
-            relations: { categoria: true },
-            order: {
-                createdAt: "DESC",
-            },
-            take: howMany[layoutType],
-        })
+        const [ultimasQuery, maisLidasQuery] = await Promise.all([
+            this.noticiaRepo.find({
+                where: { idSite: idSite },
+                relations: { categoria: true },
+                order: {
+                    createdAt: "DESC",
+                },
+                take: howMany[layoutType],
+            }),
+            this.noticiaRepo.find({
+                where: { idSite: idSite },
+                relations: {
+                    tags: true
+                },
+                order: {
+                    views: "DESC",
+                },
+                take: 4
+            })]);
 
+        let principal;
+        if (ultimasQuery.length) {
+            principal = ultimasQuery.reduce(function (prev, current) {
+                return (prev.views > current.views) ? prev : current
+            })
+        }
 
-        //4 Noticias pra mostrar no carroussel mais lidos
-        const noticiasMaisLidas = this.noticiaRepo.find({
-            where: { idSite: idSite },
-            relations: {
-                tags: true
-            },
-            order: {
-                views: "DESC",
-            },
-            take: 4
-        })
+        let ultimasFilter;
+        if (ultimasQuery.length) {
+            ultimasFilter = ultimasQuery.filter(el => el.id !== principal.id);
+        }
 
-        const [ultimasQuery, maisLidasQuery] = await Promise.all([ultimasNoticias, noticiasMaisLidas]);
-
-        /*   await Promise.all(ultimasQuery.map(async (element) => {
-              if (element.imgPath) {
-                  const imagePath = path.resolve(element.imgPath);
-                  element.imageData = await this.readImageFile(imagePath);
-              }
-          })); */
-
-
-        /*  ultimasQuery.forEach(async (element) => {
-             if (element.imgPath) {
-                 const imagePath = path.resolve(element.imgPath);
-                 return element.imageData = await this.readImageFile(imagePath);
- 
-             }
-         }); */
-
-
-        /*  maisLidasQuery.forEach(async (element) => {
- 
-             if (element.imgPath) {
-                 const imagePath = path.resolve(element.imgPath);
-                 return element.imageData = await this.readImageFile(imagePath);
-             }
-         }); */
-
-
-        /*  console.log(ultimasQuery) */
-
-        //Calcula qual vai ser a noticia principal (+lida entre as recuperadas)
-        const principal = ultimasQuery.reduce(function (prev, current) {
-            return (prev.views > current.views) ? prev : current
-        })
-
-        /* console.log(principal) */
-
-        //Retorna as ultimas tirando a ultima + lida que vai separado
-        const ultimasFilter = ultimasQuery.filter(el => el.id !== principal.id);
 
 
         //Calculo de dados economicos.
@@ -115,7 +82,8 @@ export class NewsService {
 
 
         //Modelagem do tipo objeto pra retorno front-end
-        const homeNoticias = [{ ultimasNoticias: ultimasFilter }, { noticiasMaisLidas: maisLidasQuery }, { noticiaPrincipal: principal }, { dadosEconomicos: dadosEconomicosFormatados }];
+        const homeNoticias = [{ ultimasNoticias: ultimasFilter }, { noticiasMaisLidas: maisLidasQuery }, { noticiaPrincipal: principal ?? null }, { dadosEconomicos: dadosEconomicosFormatados }];
+
         return homeNoticias;
     }
 

@@ -16,9 +16,9 @@ import { APP_GUARD } from '@nestjs/core';
     })
   ],
   controllers: [UploaderController],
-  providers: [UploaderService, {
+  providers: [UploaderService, /* {
     provide: APP_GUARD,
     useClass: ThrottlerGuard
-  }]
+  } */]
 })
 export class UploaderModule { }

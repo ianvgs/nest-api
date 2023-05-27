@@ -19,18 +19,23 @@ export class CategoriaService {
   }
 
   async getNoticiasPorCategoria(nomeCategoria: string, idSite: number): Promise<Categoria> {
+    console.log("nomeCategoria", nomeCategoria)
+    console.log("idSite", idSite)
+    console.log('entrou')
 
 
     //Possivelmente no futuro o where: sufixUrl
     const noticiasPorCategorias = await this.categoriaRepo.findOne({
       where: {
-        nome: nomeCategoria,
+        /* nome: nomeCategoria, */
+        sufixurl: nomeCategoria,
       },
       relations: {
         noticias: { colaborador: true, tags: true }
       }
     })
 
+    console.log("noticiasPorCategorias", noticiasPorCategorias)
     if (noticiasPorCategorias.idSite != idSite) {
       throw new BadRequestException('Noticia de outro site');
     }
