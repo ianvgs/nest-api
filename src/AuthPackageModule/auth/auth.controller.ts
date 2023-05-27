@@ -14,6 +14,7 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     //UseGuards injeta um user na req com dados do login
     login(@Request() req: AuthRequest) {
+        console.log("login?")
         return this.authService.login(req.user)
     }
 

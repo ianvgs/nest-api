@@ -32,10 +32,9 @@ export class NoticiaController {
     }
 
     //precisa mandar o jwt recebido como "acess_token"
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Post()
     async createNoticia(@Body() body: any): Promise<any> {
-
         return await this.ucCadastrarNoticia.run(body);
     }
 
