@@ -7,8 +7,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
 import DatabasesConfig from './config/databases.config';
 import { AuthPackageModule } from './AuthPackageModule/auth-package.module';
-/* import { MailerModuler } from './MailerModule/mailer.module'; */
-/* import { MicroServicesModule } from './MicroServicesModule/microservicer.module'; */
 import { UploaderModule } from './UploaderModule/uploader.module';
 
 @Module({
@@ -29,7 +27,6 @@ import { UploaderModule } from './UploaderModule/uploader.module';
         return configService.get<DataSourceOptions>('database.news');
       },
     }),
-
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       name: 'credentials_connection',
@@ -37,15 +34,6 @@ import { UploaderModule } from './UploaderModule/uploader.module';
         return configService.get<DataSourceOptions>('database.credentials');
       },
     }),
-
-    /* TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      name: 'banco_ideias_connection',
-      useFactory: async (configService: ConfigService) => {
-        return configService.get<DataSourceOptions>('database.banco_ideias');
-      },
-    }), */
-
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
