@@ -36,11 +36,12 @@ export class NoticiaController {
     @UseGuards(JwtAuthGuard)
     @Post()
     async createNoticia(@Body() body: any, @CurrentUser() user: any): Promise<any> {
-
-        /* if (user.appId != body.idSite){
-            EXPLODE TUDO
+        /* if (!user.isAdmin) {
+            return "Usuario sem poderes."
+        }
+        if (user?.appId != body.idSite) {
+            return "Usuario não tem acesso para escrever noticias nesta aplicação"
         } */
-
         return await this.ucCadastrarNoticia.run(body);
     }
 
