@@ -32,6 +32,7 @@ export class NewsController {
     const layoutType = Number(req.query.layoutType);
     const idSite = Number(req?.query.idSite);
 
+    console.log('Getting home data for site id:', idSite)
     return await this.ucRecuperarHomeInformacoes.run(layoutType, idSite);
   }
 
