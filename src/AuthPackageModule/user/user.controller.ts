@@ -5,48 +5,39 @@ import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 //@GUARDS
-import { IsPublic } from 'src/AuthPackageModule/auth/decorators/is-public.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth-guard';
-import { AdminUser } from './entities/admin-user.entity';
-import { CurrentAdminUser } from '../auth/decorators/current-admin-user.decorator';
-/*@IsPublic() */
+import { UserFromJwt } from '../auth/models/UserFromJwt';
+import { ROOT_USER } from '../../AuthPackageModule/constants'
+
+
 /*@UseGuards(JwtAuthGuard) */
 
 @Controller('auth')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-
   @UseGuards(JwtAuthGuard)
-  /*@IsPublic() */
   @Post('user')
-  createUser(@Body() createUserDto: CreateUserDto, @CurrentUser() user: User) {
-    console.log('postingUser', user)
+  createUser(@Body() createUserDto: CreateUserDto, @CurrentUser() user: UserFromJwt) {
+    console.log(user)
+    if (user.email != ROOT_USER.email) {
+      throw new BadRequestException('Usuario não autorizado a criar novos usuários admin.');
+    }
     return this.userService.create(createUserDto);
   }
 
-  /*@UseGuards(JwtAuthGuard) */
-  /*@IsPublic() */
+  @UseGuards(JwtAuthGuard)
   @Post('admin-user')
-  createAdminUser(@Body() createUserDto: CreateUserDto, /* @CurrentAdminUser() adminUser: AdminUser, */ /* @Req() req: Request */) {
-
-    /*   console.log("reqqqqqqqqqq", req) */
-    /* let rootUserId = 1
-    if (user.id != rootUserId) {
+  createAdminUser(@Body() createUserDto: CreateUserDto, @CurrentUser() user: UserFromJwt) {
+    if (user.email != ROOT_USER.email) {
       throw new BadRequestException('Usuario não autorizado a criar novos usuários admin.');
-    } */
-
-    /*     console.log("usuarioLogado", adminUser) */
+    }
     return this.userService.createAdminUser(createUserDto);
   }
-
 
   @UseGuards(JwtAuthGuard)
   @Get('user')
   whoAmI(@CurrentUser() user: User) {
     return user
   }
-
-
-
 }

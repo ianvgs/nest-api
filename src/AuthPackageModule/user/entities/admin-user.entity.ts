@@ -26,9 +26,9 @@ export class AdminUser {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @Column({ name: 'admin' })
-    admin: number;
+    @Column({ name: 'isAdmin' })
+    isAdmin: boolean;
 
-    @Column({ name: 'app_id' })
-    app_id: number;
+    @Column({ name: 'appId' })
+    appId: number;
 }

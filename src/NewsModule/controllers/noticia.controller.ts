@@ -11,6 +11,7 @@ import { UcGetNoticiasIdParaBuild } from '../useCases/noticiaUseCases/UcGetNotic
 
 //@GUARDS
 import { JwtAuthGuard } from '../../AuthPackageModule/auth/guards/jwt-auth-guard';
+import { CurrentUser } from 'src/AuthPackageModule/auth/decorators/current-user.decorator';
 
 @ApiTags('noticia')
 @Controller('news/noticia')
@@ -34,7 +35,12 @@ export class NoticiaController {
     //precisa mandar o jwt recebido como "acess_token"
     @UseGuards(JwtAuthGuard)
     @Post()
-    async createNoticia(@Body() body: any): Promise<any> {
+    async createNoticia(@Body() body: any, @CurrentUser() user: any): Promise<any> {
+
+        /* if (user.appId != body.idSite){
+            EXPLODE TUDO
+        } */
+
         return await this.ucCadastrarNoticia.run(body);
     }
 

@@ -6,14 +6,9 @@ import { UserPayload } from './models/UserPayload';
 import { JwtService } from '@nestjs/jwt';
 import { UserToken } from './models/UserToken';
 import { AdminUser } from '../user/entities/admin-user.entity';
-import { AdminUserPayload } from './models/AdminUserPayload';
+import { IDENTIFICADORES_LOGIN } from '../constants';
 
 
-//colocar em um arquivo de constantes globais
-const IDENTIFICADORES_LOGIN = {
-    admin: "1",
-    sites: "2"
-}
 
 
 @Injectable()
@@ -24,7 +19,7 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) { }
 
-    async validateUser(email: string, password: string, appId: string) {
+    async validateUser(email: string, password: string, appId: number) {
         let user;
         if (appId == IDENTIFICADORES_LOGIN.admin) {
             user = await this.userService.findAdminUserByEmail(email)
@@ -50,7 +45,10 @@ export class AuthService {
         const payload: UserPayload = {
             sub: user.id,
             email: user.email,
-            name: user.name
+            name: user.name,
+            appId: user.appId,
+            isAdmin: user.isAdmin
+
         }
 
         const jwtToken = this.jwtService.sign(payload)

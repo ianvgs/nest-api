@@ -25,4 +25,10 @@ export class User {
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @Column({ name: 'isAdmin' })
+    isAdmin: boolean;
+
+    @Column({ name: 'appId' })
+    appId: number;
 }

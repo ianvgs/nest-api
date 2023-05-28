@@ -34,7 +34,6 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthGuard)
     loginAdmin(@Request() req: AdminAuthRequest) {
-        console.log(req.user)
         return this.authService.generateToken(req.user)
     }
 
