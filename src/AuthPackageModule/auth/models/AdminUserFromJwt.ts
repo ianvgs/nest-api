@@ -1,6 +1,5 @@
-export interface UserFromJwt {
+export interface AdminUserFromJwt {
     id: number;
     email: string;
     name: string;
-    appId: string;
 }

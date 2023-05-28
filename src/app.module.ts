@@ -29,6 +29,15 @@ import { UploaderModule } from './UploaderModule/uploader.module';
         return configService.get<DataSourceOptions>('database.news');
       },
     }),
+
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      name: 'credentials_connection',
+      useFactory: async (configService: ConfigService) => {
+        return configService.get<DataSourceOptions>('database.credentials');
+      },
+    }),
+
     /* TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       name: 'banco_ideias_connection',

@@ -6,4 +6,7 @@ export class LoginRequestBody {
 
     @IsString()
     password: string;
+
+    @IsString()
+    appId: string;
 }
