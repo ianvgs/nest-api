@@ -3,5 +3,5 @@ export interface UserFromJwt {
     email: string;
     name: string;
     appId: number;
-    isAdmin: boolean;
+    isAdmin: number;
 }

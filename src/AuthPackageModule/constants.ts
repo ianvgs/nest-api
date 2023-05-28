@@ -1,6 +1,6 @@
-export const ROOT_USER = { email: 'admin@user.com' }
+export const ROOT_ADMIN_USER = { email: 'root@user.com', id: 5, name: 'root' }
 
 export const IDENTIFICADORES_LOGIN = {
-    admin: 1,
-    sites: 2
+    admin: "admin",
+    sites: "normal"
 }

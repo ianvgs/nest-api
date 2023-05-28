@@ -27,7 +27,7 @@ export class AdminUser {
     updatedAt: Date;
 
     @Column({ name: 'isAdmin' })
-    isAdmin: boolean;
+    isAdmin: number;
 
     @Column({ name: 'appId' })
     appId: number;

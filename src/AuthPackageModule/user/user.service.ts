@@ -18,7 +18,8 @@ export class UserService {
 
 
   async create(createUserDto: CreateUserDto) {
-    const { name, email, password } = createUserDto
+    console.log("createUserDto", createUserDto)
+    const { name, email, password, appId, isAdmin } = createUserDto
 
     const verifyEmailInUse = await this.findByEmail(email)
     if (verifyEmailInUse) {
@@ -29,6 +30,8 @@ export class UserService {
 
     const generateNewUser = this.userRepo.create({
       name,
+      appId,
+      isAdmin,
       password: await bcrypt.hash(password, 10),
       email,
       createdAt: new Date(),
@@ -53,7 +56,7 @@ export class UserService {
   }
 
   async createAdminUser(createUserDto: CreateUserDto) {
-    const { name, email, password } = createUserDto
+    const { name, email, password, isAdmin } = createUserDto
 
     const verifyEmailInUse = await this.findAdminUserByEmail(email)
     if (verifyEmailInUse) {
@@ -63,6 +66,7 @@ export class UserService {
     }
 
     const generateNewUser = this.adminUserRepo.create({
+      isAdmin,
       name,
       password: await bcrypt.hash(password, 10),
       email,

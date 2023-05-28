@@ -7,7 +7,7 @@ import { UserService } from './user.service';
 //@GUARDS
 import { JwtAuthGuard } from '../auth/guards/jwt-auth-guard';
 import { UserFromJwt } from '../auth/models/UserFromJwt';
-import { ROOT_USER } from '../../AuthPackageModule/constants'
+import { ROOT_ADMIN_USER } from '../../AuthPackageModule/constants'
 
 
 /*@UseGuards(JwtAuthGuard) */
@@ -20,8 +20,12 @@ export class UserController {
   @Post('user')
   createUser(@Body() createUserDto: CreateUserDto, @CurrentUser() user: UserFromJwt) {
     console.log(user)
-    if (user.email != ROOT_USER.email) {
+    if (user.email != ROOT_ADMIN_USER.email && user.id != ROOT_ADMIN_USER.id) {
       throw new BadRequestException('Usuario não autorizado a criar novos usuários admin.');
+    }
+
+    if (user.email == ROOT_ADMIN_USER.email && user.id == ROOT_ADMIN_USER.id) {
+      console.log("Logado como usuario:", user.email)
     }
     return this.userService.create(createUserDto);
   }
@@ -29,8 +33,12 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Post('admin-user')
   createAdminUser(@Body() createUserDto: CreateUserDto, @CurrentUser() user: UserFromJwt) {
-    if (user.email != ROOT_USER.email) {
+    if (user.email != ROOT_ADMIN_USER.email && user.id != ROOT_ADMIN_USER.id) {
       throw new BadRequestException('Usuario não autorizado a criar novos usuários admin.');
+    }
+
+    if (user.email == ROOT_ADMIN_USER.email && user.id == ROOT_ADMIN_USER.id) {
+      console.log("Logado como usuario:", user.email)
     }
     return this.userService.createAdminUser(createUserDto);
   }

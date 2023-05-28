@@ -16,10 +16,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     }
 
     validate(request: Request, email: string, password: string) {
-        const { appId } = request.body
-        if (!appId) {
+        const { where } = request.body
+        if (!where) {
             throw new BadRequestException("Não foi informado à qual aplicação está sendo direcionado este login.")
         }
-        return this.authService.validateUser(email, password, appId);
+        return this.authService.validateUser(email, password, where);
     }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 //Types@Models
@@ -12,6 +12,7 @@ import { UcGetNoticiasIdParaBuild } from '../useCases/noticiaUseCases/UcGetNotic
 //@GUARDS
 import { JwtAuthGuard } from '../../AuthPackageModule/auth/guards/jwt-auth-guard';
 import { CurrentUser } from 'src/AuthPackageModule/auth/decorators/current-user.decorator';
+import { ROOT_ADMIN_USER } from 'src/AuthPackageModule/constants';
 
 @ApiTags('noticia')
 @Controller('news/noticia')
@@ -32,17 +33,21 @@ export class NoticiaController {
         return await this.ucRecuperarTodasNoticias.run();
     }
 
-    //precisa mandar o jwt recebido como "acess_token"
+
     @UseGuards(JwtAuthGuard)
     @Post()
     async createNoticia(@Body() body: any, @CurrentUser() user: any): Promise<any> {
-        /* if (!user.isAdmin) {
-            return "Usuario sem poderes."
+
+        console.log(user)
+        console.log(body)
+
+        if (!user.admin && user.appId != body.idSite) {
+            throw new BadRequestException('Usuario não autorizado a criar novas noticias para esta aplicação.');
         }
-        if (user?.appId != body.idSite) {
-            return "Usuario não tem acesso para escrever noticias nesta aplicação"
-        } */
-        return await this.ucCadastrarNoticia.run(body);
+        console.log("Usuario autenticado a realizar gravações de noticias para o site", user.appId)
+        console.log("Realizando criação de noticia para o app", body.idSite)
+
+        /*  return await this.ucCadastrarNoticia.run(body); */
     }
 
     @Get('/:idNoticia')

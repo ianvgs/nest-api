@@ -19,13 +19,13 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) { }
 
-    async validateUser(email: string, password: string, appId: number) {
+    async validateUser(email: string, password: string, where: string) {
         let user;
-        if (appId == IDENTIFICADORES_LOGIN.admin) {
+        if (where == IDENTIFICADORES_LOGIN.admin) {
             user = await this.userService.findAdminUserByEmail(email)
         }
 
-        if (appId == IDENTIFICADORES_LOGIN.sites) {
+        if (where == IDENTIFICADORES_LOGIN.sites) {
             user = user = await this.userService.findByEmail(email)
         }
 

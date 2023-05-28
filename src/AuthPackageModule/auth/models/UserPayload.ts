@@ -3,7 +3,7 @@ export interface UserPayload {
     email: string;
     name: string;
     appId: number;
-    isAdmin: boolean;
+    isAdmin: number;
     iat?: number;
     exp?: number;
 

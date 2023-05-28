@@ -8,5 +8,5 @@ export class LoginRequestBody {
     password: string;
 
     @IsString()
-    appId: number;
+    where: string;
 }
