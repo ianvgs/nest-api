@@ -47,7 +47,7 @@ export class NoticiaController {
         console.log("Usuario autenticado a realizar gravações de noticias para o site", user.appId)
         console.log("Realizando criação de noticia para o app", body.idSite)
 
-        /*  return await this.ucCadastrarNoticia.run(body); */
+        return await this.ucCadastrarNoticia.run(body);
     }
 
     @Get('/:idNoticia')

@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Post, UseGuards, Req } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, UseGuards, Req, Put } from '@nestjs/common';
 import { CurrentUser } from 'src/AuthPackageModule/auth/decorators/current-user.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth-guard';
 import { UserFromJwt } from '../auth/models/UserFromJwt';
 import { ROOT_ADMIN_USER } from '../../AuthPackageModule/constants'
+import { ChangeAdminPassword } from './dto/change-admin-password.dto';
 
 
 /*@UseGuards(JwtAuthGuard) */
@@ -44,8 +45,16 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Put('admin-password')
+  changeAdminPassword(@Body() changeAdminPassword: ChangeAdminPassword) {
+    return 'Método utilizado momentaneamente para alterar as senhas de admins'
+    //return this.userService.changeAdminPassword(changeAdminPassword);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('user')
   whoAmI(@CurrentUser() user: User) {
+    console.log("CHEGA AQUI")
     return user
   }
 }

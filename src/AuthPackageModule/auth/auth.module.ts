@@ -34,6 +34,7 @@ import { LoginValidationMiddleware } from './middlewares/login-validation.middle
 export class AuthModule implements NestModule {
   //Middleware: email,password,appId ?? Exception;
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoginValidationMiddleware).forRoutes('/auth/*');
+    /*      consumer.apply(LoginValidationMiddleware).forRoutes('/auth/*');  */
+    consumer.apply(LoginValidationMiddleware).forRoutes('/auth/login');
   }
 }

@@ -27,6 +27,7 @@ export class LoginValidationMiddleware implements NestMiddleware {
                 validations.reduce((acc, curr) => {
                     return [...acc, ...Object.values(curr.constraints)];
                 }, []),
+                "Middleware de login não recebeu todos os parâmetros."
             );
         }
 

@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt'
 import { AdminUser } from './entities/admin-user.entity';
 import { User } from './entities/user.entity';
+import { ChangeAdminPassword } from './dto/change-admin-password.dto';
 
 @Injectable()
 export class UserService {
@@ -81,6 +82,19 @@ export class UserService {
       ...createdUser,
       password: undefined
     };
+  }
+
+  async changeAdminPassword(changeAdminPassword: ChangeAdminPassword) {
+    const { email, password } = changeAdminPassword
+
+    const photoToUpdate = await this.adminUserRepo.findOneBy({
+      email
+    })
+
+    photoToUpdate.password = await bcrypt.hash(password, 10)
+    return await this.adminUserRepo.save(photoToUpdate);
+
+
   }
 
   async findAdminUserByEmail(email: string) {
